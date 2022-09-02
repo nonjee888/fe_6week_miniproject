@@ -11,12 +11,12 @@ function Router() {
   return (
     <div>
       <Routes>
-        <Route path="/api/member/login" element={<Login/>} exact/>
-        <Route path="/api/member/signup" element={<Signup/>} exact/>
-        <Route path="/api/auth/post" element={<Post/>} exact/>
-        <Route path="/api/auth/post/:id" element={<Detail/>} exact/>
-        <Route path="/api/post" element={<Main/>} exact/>
-        <Route path="/api/auth/member/info" element={<Mypage/>}  />
+        <Route path="/" element={<Login/>} exact/>
+        <Route path="/signup" element={<Signup/>} exact/>
+        <Route path="/view" element={<Post/>} exact/>
+        <Route path="/view/:id" element={<Detail/>} exact/>
+        <Route path="/main" element={<Main/>} exact/>
+        <Route path="/mypage" element={<Mypage/>}  />
         <Route path="*" element={<div>없는 페이지입니다.</div>}/>
       </Routes>
     </div>
