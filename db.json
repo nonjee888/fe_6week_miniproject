@@ -1,0 +1,23 @@
+{
+  "posts": [
+    {
+      "nickname": "abc123",
+      "title": "안녕하세요",
+      "content": "일기장입니다",
+      "pics": ""
+    }
+  ],
+  "comments": [
+    {
+      "postId": 2,
+      "content": "test입니다."
+    }
+  ],
+  "users": [
+    {
+      "nickname": "zintest1",
+      "password": "zin123",
+      "passwordConfirm": "zin123"
+    }
+  ]
+}

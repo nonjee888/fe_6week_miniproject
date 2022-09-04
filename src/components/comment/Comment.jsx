@@ -33,15 +33,15 @@ const Comment = () => {
     if (error) {
         return <div>{error.message}</div>;
     }
-    // let commentList = comments.filter((comment) => {
-    //     return String(comment.post) === id;
-    // })
+    let commentList = comments.filter((comment) => {
+        return String(comment.post) === id;
+    })
 
     return(
         <div>
             <div>댓글</div>
             <Ment/>
-            {/* <div>
+            <div>
                 <input className="input" type="text" value={ment}
                 onChange={(e) => {setMent(e.target.value);
                 setReview({...review, id:comId, post: id, desc:e.target.value});}}/>
@@ -53,7 +53,7 @@ const Comment = () => {
                         <Ment ment = {comment} key={comment.id} />
                     )
                 })}
-            </div> */}
+            </div>
         </div>
     );
 }

@@ -13,7 +13,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Login/>} exact/>
         <Route path="/signup" element={<Signup/>} exact/>
-        <Route path="/view" element={<Post/>} exact/>
+        <Route path="/write" element={<Post/>} exact/>
         <Route path="/view/:id" element={<Detail/>} exact/>
         <Route path="/main" element={<Main/>} exact/>
         <Route path="/mypage" element={<Mypage/>}  />

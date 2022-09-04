@@ -1,27 +1,46 @@
 import React from "react";
 import styled from "styled-components";
+import { banner } from "../../img";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
 
-    const StHeader = styled.div`
-        max-width: 1200px;
-        min-width:800px;
-        height: 150px;
-        background-color: aliceblue;
-        margin: auto;
-        font-family: 'Song Myung', serif;
-        color: red;
-        font-size: 60px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-    `
-
-    return(
-        <div>
-            <StHeader>오늘도 무사히.</StHeader>
-        </div>
-    );
-}
+  return (
+    <StHeader>
+      <button
+        onClick={() => {
+          navigate("/write");
+        }}
+      >
+        글작성
+      </button>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        로그아웃
+      </button>
+      <button
+        onClick={() => {
+          navigate("/mypage");
+        }}
+      >
+        나의 게시글
+      </button>
+    </StHeader>
+  );
+};
 
 export default Header;
+
+const StHeader = styled.div`
+  height: 250px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  background-image: url(${banner});
+  background-size: cover;
+  background-repeat: no-repeat;
+`;

@@ -14,10 +14,10 @@ const Ment = ({ment}) => {
     <>
         {modal?<Commentmodal ment = {ment} close={close}/>:null}
         <div className='list' 
-        // key={ment.id}
+        key={ment.id}
         >
             <h4>
-                {/* {ment.desc} */}
+                {ment.desc}
                 </h4>
             <button onClick={()=>{
             setModal(true);
