@@ -6,13 +6,17 @@ export const __userLogin = createAsyncThunk(
   "user/userLogin",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/users", payload);
+      const data = await axios.post(
+        "http://52.79.247.187:8080/api/member/login",
+        payload
+      );
+      console.log(data);
       if (data.success) {
         setCookie("isLogin", data.token);
         return thunkAPI.fulfillWithValue(data.data.nickname);
       }
-      //setCookie("ACCESS_TOKEN", data.토큰, 만료시간);
-      //localStorage.setItem("nickname", data.nickname);
+      //   setCookie("ACCESS_TOKEN", data.토큰, 만료시간);
+      localStorage.setItem("nickname", data.nickname);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -29,6 +33,7 @@ export const users = createSlice({
   },
 
   reducers: {},
+
   extraReducers: {
     [__userLogin.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.

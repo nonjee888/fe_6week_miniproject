@@ -8,7 +8,6 @@ import Posts from "../posts/Posts";
 const List = () => {
   let dispatch = useDispatch();
   const { isLoading, error, posts } = useSelector((state) => state.posts);
-  console.log(posts);
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);

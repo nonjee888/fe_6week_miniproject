@@ -25,12 +25,13 @@ const Form = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    const URL = "http://localhost:3001/posts";
+    console.log("11");
+    const URL = "http://52.79.247.187:8080/api/auth/posts";
     const formData = new FormData();
     console.log("dddd");
     formData.append("title", title);
     formData.append("content", content);
-    // formData.append("img", image);
+    formData.append("img", image);
 
     const data = await axios.post(URL, formData);
     if (data.success) {
@@ -41,11 +42,10 @@ const Form = () => {
   // dispatch(createPost({ ...post, id: id }));
   // setPost(initialState);
 
-  // 이미지 업로드 버튼
-  //   const uploadImage = (event) => {
-  //     const file = event.target.files;
-  //     setImage(file);
-  //   };
+  const uploadImage = (event) => {
+    const file = event.target.files;
+    setImage(file);
+  };
 
   return (
     <StForm className="add-form" onSubmit={onSubmitHandler}>
@@ -60,7 +60,7 @@ const Form = () => {
             onChange={(event) => onChangeHandler(event, setTitle)}
           />
 
-          {/* <label htmlFor="imgFile">
+          <label htmlFor="imgFile">
             <File
               type="file"
               accept=".gif, .jpg, .png"
@@ -68,7 +68,7 @@ const Form = () => {
               id="imgFile"
             />
             // 여기 보여줄 코드 버튼 넣기
-          </label> */}
+          </label>
         </Divin>
 
         <Divin>
@@ -101,7 +101,7 @@ const PicContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
-const StForm = styled.div`
+const StForm = styled.form`
   width: 400px;
   height: 100%;
   margin: auto;

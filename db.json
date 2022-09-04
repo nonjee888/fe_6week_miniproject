@@ -1,6 +1,21 @@
 {
   "posts": [
     {
+      "id": "1",
+      "nickname": "abc123",
+      "title": "안녕하세요",
+      "content": "일기장입니다",
+      "pics": ""
+    },
+    {
+      "id": "2",
+      "nickname": "abc123",
+      "title": "안녕하세요",
+      "content": "일기장입니다",
+      "pics": ""
+    },
+    {
+      "id": "3",
       "nickname": "abc123",
       "title": "안녕하세요",
       "content": "일기장입니다",
@@ -9,11 +24,29 @@
   ],
   "comments": [
     {
-      "postId": 2,
+      "postId": 1,
+      "content": "test입니다."
+    },
+    {
+      "postId": 1,
+      "content": "test입니다."
+    },
+    {
+      "postId": 1,
       "content": "test입니다."
     }
   ],
   "users": [
+    {
+      "nickname": "zintest1",
+      "password": "zin123",
+      "passwordConfirm": "zin123"
+    },
+    {
+      "nickname": "zintest1",
+      "password": "zin123",
+      "passwordConfirm": "zin123"
+    },
     {
       "nickname": "zintest1",
       "password": "zin123",

@@ -12,6 +12,7 @@ export const __getPosts = createAsyncThunk(
     }
   }
 );
+// http://52.79.247.187:8080/api/posts
 
 export const posts = createSlice({
   name: "post",
@@ -23,19 +24,23 @@ export const posts = createSlice({
   reducers: {
     createPost(state, action) {
       state.posts.push(action.payload);
-      axios.post("http://localhost:3001/posts", action.payload);
+      axios.post("http://52.79.247.187:8080/api/auth/posts", action.payload);
     },
     removePost(state, action) {
       let index = state.posts.findIndex((post) => post.id === action.payload);
       state.posts.splice(index, 1);
-      axios.delete(`http://localhost:3001/posts/${action.payload}`);
+      axios.delete(
+        `http://52.79.247.187:8080/api/auth/posts/${action.payload}`
+      );
     },
     updatePost(state, action) {
       let index = state.posts.findIndex(
         (post) => post.id === action.payload.id
       );
       state.posts.splice(index, 1, action.payload);
-      axios.patch(`http://localhost:3001/posts/${action.payload.id}`);
+      axios.patch(
+        `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`
+      );
     },
     likePost(state, action) {
       let index = state.posts.findIndex(
@@ -43,7 +48,7 @@ export const posts = createSlice({
       );
       state.posts[index].count += 1;
       axios.patch(
-        `http://localhost:3001/posts/${action.payload.id}`,
+        `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`,
         action.payload
       );
     },

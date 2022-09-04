@@ -18,43 +18,44 @@ const Loginpage = () => {
   };
   return (
     <StContainer>
-      <Divin>
-        <input
-          placeholder="nickname"
-          type="text"
-          name="nickname"
-          value={user.id}
-          onChange={onChangeHandler}
-        />
-      </Divin>
+      <InputGroup>
+        <Divin>
+          <Input
+            placeholder="nickname"
+            type="text"
+            name="nickname"
+            value={user.id}
+            onChange={onChangeHandler}
+          />
+        </Divin>
 
-      <Divin>
-        <input
-          placeholder="비밀번호"
-          type="password"
-          name="password"
-          value={user.password}
-          onChange={onChangeHandler}
-        />
-      </Divin>
+        <Divin>
+          <Input
+            placeholder="비밀번호"
+            type="password"
+            name="password"
+            value={user.password}
+            onChange={onChangeHandler}
+          />
+        </Divin>
+      </InputGroup>
 
-      <Divin>
-        <button
+      <ButtonGroup>
+        <Button
           onClick={() => {
             dispatch(__userLogin(user));
-            navigate("/main");
           }}
         >
           로그인
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => {
             navigate("/signup");
           }}
         >
           회원가입
-        </button>
-      </Divin>
+        </Button>
+      </ButtonGroup>
     </StContainer>
   );
 };
@@ -63,13 +64,42 @@ export default Loginpage;
 
 const StContainer = styled.div`
   background-color: white;
-  width: 400px;
+  border-radius: 10px;
+  width: 300px;
   height: 300px;
   float: center;
   align-items: center;
-  margin: 100px 0 0 400px;
+  margin: 100px 0 0 450px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
 const Divin = styled.div`
   padding: 10px;
+`;
+const ButtonGroup = styled.div`
+  width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 50px;
+  padding-left: 20px;
+  margin: auto;
+  gap: 10%;
+`;
+const Button = styled.button`
+  width: 80px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+`;
+const InputGroup = styled.div`
+  width: 205px;
+  padding-top: 30px;
+  margin: auto;
+`;
+const Input = styled.input`
+  width: 180px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
