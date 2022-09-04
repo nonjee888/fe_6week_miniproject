@@ -1,46 +1,35 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPost } from "../../redux/modules/posts";
-import { useDispatch } from "react-redux";
+import { getCookie } from "../../shared/cookie";
 import styled from "styled-components";
-import nextId from "react-id-generator";
 import axios from "axios";
 
 const Form = () => {
   let navigate = useNavigate();
-  //   const initialState = {
-  //     nickname: "",
-  //     title: "",
-  //     content: "",
-  //     pics: "", // 백이랑 어떻게 보낼지 결정
-  //   };
-  //   const [post, setPost] = useState(initialState);
+  const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const onChangeHandler = (event, setState) => setState(event.target.value);
-  console.log();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log("11");
-    const URL = "http://52.79.247.187:8080/api/auth/posts";
-    const formData = new FormData();
-    console.log("dddd");
-    formData.append("title", title);
-    formData.append("content", content);
+    const URL = "http://52.79.247.187:8080/api/auth/posts"; //post할 주소
+    const formData = new FormData(); //사진 첨부해서 post 할 때 formData 써줌
+    formData.append("title", title); //title 값 formData에 넣어줌
+    formData.append("content", content); //content formData에 넣어줌
     formData.append("img", image);
-
-    const data = await axios.post(URL, formData);
+    //post
+    const data = await axios.post(URL, formData, {
+      headers: { Authorization: "Bearer " + token },
+    });
+    console.log(data);
     if (data.success) {
       navigate("/main");
     }
   };
-  // 기존 onSubmitHandler에 있던 코드
-  // dispatch(createPost({ ...post, id: id }));
-  // setPost(initialState);
 
   const uploadImage = (event) => {
     const file = event.target.files;
@@ -93,13 +82,6 @@ export default Form;
 
 const Divin = styled.div`
   padding: 20px;
-`;
-const PicContainer = styled.div`
-  width: 300px;
-  height: 300px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
 const StForm = styled.form`
   width: 400px;

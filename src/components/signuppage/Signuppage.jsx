@@ -21,7 +21,7 @@ const Signuppage = () => {
   };
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    const data = await axios.post(
+    const { data } = await axios.post(
       "http://52.79.247.187:8080/api/member/signup",
       user
     );
@@ -29,7 +29,7 @@ const Signuppage = () => {
     if (data.success) {
       navigate("/");
     } else {
-      window.alert("회원가입 실패");
+      window.alert(data.error.message);
     }
   };
   return (

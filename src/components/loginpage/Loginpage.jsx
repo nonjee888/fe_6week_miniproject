@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __userLogin } from "../../redux/modules/users";
 import styled from "styled-components";
+import Login from "../../pages/Login";
 
 const Loginpage = () => {
   let navigate = useNavigate();
@@ -16,6 +17,18 @@ const Loginpage = () => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   };
+  //이벤트 리스너
+  // idForm.addEventListner('keyup', activeEvent);
+  // pwForm.addEventListner('keyup', activeEvent);
+  // LoginButton.addEventListner('click', errorEvent);
+
+  // function activeEvent() {
+  //   switch(!(idForm.value && pwForm.value)){
+  //     case true : LoginButton.disabled = true; break;
+  //     case false : LoginButton.disabled = false; break;
+  //   }
+  // }
+
   return (
     <StContainer>
       <InputGroup>
@@ -26,6 +39,7 @@ const Loginpage = () => {
             name="nickname"
             value={user.id}
             onChange={onChangeHandler}
+            required
           />
         </Divin>
 
@@ -36,6 +50,7 @@ const Loginpage = () => {
             name="password"
             value={user.password}
             onChange={onChangeHandler}
+            required
           />
         </Divin>
       </InputGroup>
@@ -43,7 +58,10 @@ const Loginpage = () => {
       <ButtonGroup>
         <Button
           onClick={() => {
+            if (user.nickname.trim() === "" || user.password.trim() === "")
+              return alert("닉네임과 비밀번호를 입력하세요.");
             dispatch(__userLogin(user));
+            navigate("/main");
           }}
         >
           로그인

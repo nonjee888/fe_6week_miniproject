@@ -1,37 +1,67 @@
 {
   "posts": [
     {
-      "id": "1",
+      "id": 1,
       "nickname": "abc123",
       "title": "안녕하세요",
       "content": "일기장입니다",
-      "pics": ""
+      "pics": "",
+      "count": 1
     },
     {
-      "id": "2",
-      "nickname": "abc123",
-      "title": "안녕하세요",
-      "content": "일기장입니다",
-      "pics": ""
+      "id": 2,
+      "nickname": "hello",
+      "title": "everyone",
+      "content": "nice to meet you",
+      "pics": "",
+      "count": 1
     },
     {
-      "id": "3",
+      "id": 3,
+      "nickname": "1234567",
+      "title": "sososososo",
+      "content": "hahahahaha",
+      "pics": "",
+      "count": 1
+    },
+    {
+      "id": 4,
       "nickname": "abc123",
       "title": "안녕하세요",
       "content": "일기장입니다",
-      "pics": ""
+      "pics": "",
+      "count": 1
+    },
+    {
+      "id": 5,
+      "nickname": "hello",
+      "title": "everyone",
+      "content": "nice to meet you",
+      "pics": "",
+      "count": 1
+    },
+    {
+      "id": 6,
+      "nickname": "1234567",
+      "title": "sososososo",
+      "content": "hahahahaha",
+      "pics": "",
+      "count": 1
     }
   ],
   "comments": [
     {
+      "id": 0,
       "postId": 1,
       "content": "test입니다."
     },
     {
+      "id": 1,
       "postId": 1,
       "content": "test입니다."
     },
     {
+      "id": 2,
       "postId": 1,
       "content": "test입니다."
     }
@@ -43,14 +73,14 @@
       "passwordConfirm": "zin123"
     },
     {
-      "nickname": "zintest1",
-      "password": "zin123",
-      "passwordConfirm": "zin123"
+      "nickname": "1234",
+      "password": "1234",
+      "passwordConfirm": "1234"
     },
     {
-      "nickname": "zintest1",
-      "password": "zin123",
-      "passwordConfirm": "zin123"
+      "nickname": "asdf",
+      "password": "asdf",
+      "passwordConfirm": "asdf"
     }
   ]
 }
