@@ -9,21 +9,31 @@ const Form = () => {
   let navigate = useNavigate();
   const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
   const fresh = getCookie("REFRESH_TOKEN");
-  console.log(token);
-  console.log(fresh);
-  const [imgUrl, setImgUrl] = useState(null);
+  const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const onChangeHandler = (event, setState) => setState(event.target.value);
 
   const onSubmitHandler = async (event) => {
+    console.log("작동되나요");
+    console.log(event);
     event.preventDefault();
+    let req = {
+      title: title,
+      content: content,
+    };
+    const formData = new FormData();
+    let json = JSON.stringify(req);
+    const titleblob = new Blob([json], { type: "application/json" });
+    formData.append("title", titleblob);
+    const contentblob = new Blob([json], { type: "application/json" });
+    formData.append("content", contentblob);
     const URL = "http://52.79.247.187:8080/api/auth/posts"; //post할 주소
-    const formData = new FormData(); //사진 첨부해서 post 할 때 formData 써줌
-    formData.append("title", title); //title 값 formData에 넣어줌
-    formData.append("content", content); //content formData에 넣어줌
-    formData.append("imgUrl", imgUrl);
+    //사진 첨부해서 post 할 때 formData 써줌
+    // formData.append("title", title); //title 값 formData에 넣어줌
+    // formData.append("content", content); //content formData에 넣어줌
+    formData.append("image", image);
     //post
     const data = await axios.post(URL, formData, {
       headers: {
@@ -40,11 +50,15 @@ const Form = () => {
 
   const uploadImage = (event) => {
     const file = event.target.files;
-    setImgUrl(file);
+    setImage(file[0]);
   };
 
   return (
-    <StForm className="add-form" onSubmit={onSubmitHandler}>
+    <StForm
+      className="add-form"
+      encType="multipart/form-data"
+      onSubmit={onSubmitHandler}
+    >
       <FormContainer>
         <Divin>
           <StTitle
@@ -59,7 +73,7 @@ const Form = () => {
           <label htmlFor="imgUrl">
             <File
               type="file"
-              accept=".gif, .jpg, .png, jpeg"
+              accept=".gif, .jpg, .png, .jpeg"
               onChange={uploadImage}
               id="imgUrl"
             />
@@ -79,6 +93,14 @@ const Form = () => {
 
         <Divin>
           <Button type="submit">등록</Button>
+          <Button
+            type="submit"
+            onClick={() => {
+              navigate("/main");
+            }}
+          >
+            취소
+          </Button>
         </Divin>
       </FormContainer>
     </StForm>

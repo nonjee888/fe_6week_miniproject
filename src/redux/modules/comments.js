@@ -6,8 +6,9 @@ export const __getComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        console.log(data)`http://52.79.247.187:8080/api/posts/${payload}`
+        `http://52.79.247.187:8080/api/posts/${payload}`
       );
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

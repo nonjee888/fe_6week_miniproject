@@ -8,7 +8,7 @@ const Detail = () => {
     <div>
       <Header />
       <Postdetail />
-      {/* <Comment /> */}
+      <Comment />
     </div>
   );
 };

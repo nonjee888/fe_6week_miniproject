@@ -21,7 +21,10 @@ const Comment = () => {
   let [ment, setMent] = useState("");
   let [review, setReview] = useState(initialState);
   let { id } = useParams();
-  const { isLoading, error, comments } = useSelector((state) => state.comments);
+  const { isLoading, error, comments } = useSelector(
+    (state) => state?.comments
+  );
+  console.log(comments);
 
   useEffect(() => {
     dispatch(__getComments());

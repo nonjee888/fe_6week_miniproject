@@ -12,7 +12,7 @@ export const __userLogin = createAsyncThunk(
         "http://52.79.247.187:8080/api/member/login",
         payload
       );
-      console.log(data.headers.refreshtoken);
+      console.log(data);
       if (data.data.success) {
         setCookie("isLogin", data.headers.authorization);
         setCookie("ACCESS_TOKEN", data.headers.authorization, 0.5);

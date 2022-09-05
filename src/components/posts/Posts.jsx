@@ -2,24 +2,28 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Posts = ({ post }) => {
+  console.log(post);
   let navigate = useNavigate();
   return (
     <>
       <div className="list">
         <PostBody>
-          <PostTitle onClick={() => navigate("/view/" + post.id)}>
+          <PostTitle onClick={() => navigate("/view/" + post?.id)}>
             <Texts>
               <div>
-                <p>{post.nickname}</p>
+                <p>{post?.nickname}</p>
               </div>
               <div>
-                <p>{post.title}</p>
+                <p>{post?.title}</p>
               </div>
               <div>
                 <span>💙 </span>
               </div>
               <div>
-                <p>{post.count}</p>
+                <p>{post?.likes}</p>
+              </div>
+              <div>
+                <p>{post?.imgUrl}</p>
               </div>
             </Texts>
           </PostTitle>

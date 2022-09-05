@@ -7,11 +7,12 @@ import Posts from "../posts/Posts";
 
 const List = () => {
   let dispatch = useDispatch();
-  const { isLoading, error, posts } = useSelector((state) => state.posts);
+  const { isLoading, error, posts } = useSelector((state) => state?.posts);
+
   useEffect(() => {
     dispatch(__getPosts());
-  }, [dispatch]);
-
+  }, []);
+  console.log(useSelector((state) => state));
   if (isLoading) {
     return <div>로딩 중입니다</div>;
   }
@@ -19,12 +20,13 @@ const List = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
-  let postList = posts.filter((post) => {
-    return post !== null;
-  });
+  // let postList = posts.data?.filter((post) => {
+  //   return post !== null;
+  // });
+
   return (
     <div>
-      {postList.map((post) => (
+      {posts?.map((post) => (
         <Posts post={post} key={post.id} />
       ))}
     </div>

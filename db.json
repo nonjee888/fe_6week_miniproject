@@ -5,48 +5,48 @@
       "nickname": "abc123",
       "title": "안녕하세요",
       "content": "일기장입니다",
-      "pics": "",
-      "count": 1
+      "imgUrl": "",
+      "likes": 1
     },
     {
       "id": 2,
       "nickname": "hello",
       "title": "everyone",
       "content": "nice to meet you",
-      "pics": "",
-      "count": 1
+      "imgUrl": "",
+      "likes": 1
     },
     {
       "id": 3,
       "nickname": "1234567",
       "title": "sososososo",
       "content": "hahahahaha",
-      "pics": "",
-      "count": 1
+      "imgUrl": "",
+      "likes": 1
     },
     {
       "id": 4,
-      "nickname": "abc123",
-      "title": "안녕하세요",
-      "content": "일기장입니다",
-      "pics": "",
-      "count": 1
+      "nickname": "123",
+      "title": "안요",
+      "content": "일니다",
+      "imgUrl": "",
+      "likes": 1
     },
     {
       "id": 5,
-      "nickname": "hello",
-      "title": "everyone",
-      "content": "nice to meet you",
-      "pics": "",
-      "count": 1
+      "nickname": "hlo",
+      "title": "evee",
+      "content": "nio meet you",
+      "imgUrl": "",
+      "likes": 1
     },
     {
       "id": 6,
-      "nickname": "1234567",
-      "title": "sososososo",
-      "content": "hahahahaha",
-      "pics": "",
-      "count": 1
+      "nickname": "12567",
+      "title": "soso",
+      "content": "haha",
+      "imgUrl": "",
+      "likes": 1
     }
   ],
   "comments": [
