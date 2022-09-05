@@ -2,21 +2,25 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { setCookie } from "../../shared/cookie";
 import axios from "axios";
 
+// import { setRefreshTokenToCookie } from "../../shared/cookie"; //체크
+
 export const __userLogin = createAsyncThunk(
   "user/userLogin",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post(
+      const data = await axios.post(
         "http://52.79.247.187:8080/api/member/login",
         payload
       );
-      console.log(data);
-      if (data.success) {
-        setCookie("isLogin", data.data.token);
-        return thunkAPI.fulfillWithValue(data.data.nickname);
+      console.log(data.headers.refreshtoken);
+      if (data.data.success) {
+        setCookie("isLogin", data.headers.authorization);
+        setCookie("ACCESS_TOKEN", data.headers.authorization, 0.5);
+        setCookie("REFRESH_TOKEN", data.headers.refreshtoken); //체크
       }
-      setCookie("ACCESS_TOKEN", data.data.token, 0.5);
-      localStorage.setItem("nickname", data.data.nickname);
+      localStorage.setItem("nickname", data.data.data.nickname);
+      //   localStorage.setItem("REFRESH_TOKEN", data.headers.authorization);
+      return thunkAPI.fulfillWithValue(data.data.data.nickname);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

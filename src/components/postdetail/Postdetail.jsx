@@ -34,9 +34,8 @@ const Postdetail = () => {
   return (
     <>
       {modal ? <Postmodal post={post} close={close} /> : null}
-      <div>게시글</div>
 
-      <div className="modal" style={{ background: "#d3d3d3" }}>
+      <div className="modal">
         <button onClick={() => navigate(-1)}>이전으로</button>
         <h4>{post.nickname}</h4>
         <p>{post.title}</p>

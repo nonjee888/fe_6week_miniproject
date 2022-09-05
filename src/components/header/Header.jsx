@@ -58,7 +58,15 @@ const Button = styled.button`
 
 const ButtonGroup = styled.div`
   margin-left: 900px;
-  margin-top: 170px;
+  margin-top: 100px;
   width: 500px;
   justify-content: space-between;
 `;
+
+// const HeaderBox = styled.form`
+// display: flex;
+// flex-direction: row;
+// -webkit-box-align: center;
+// align-items: center;
+// justify-content: space-between;
+// margin: 15px 15px 15px; `;

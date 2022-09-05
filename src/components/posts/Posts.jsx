@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const Posts = ({ post }) => {
   let navigate = useNavigate();
-  console.log(post);
   return (
     <>
       <div className="list">
