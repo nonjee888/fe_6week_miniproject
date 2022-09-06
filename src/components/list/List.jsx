@@ -11,12 +11,11 @@ const List = () => {
 
   useEffect(() => {
     dispatch(__getPosts());
-  }, []);
-  console.log(useSelector((state) => state));
+  }, [dispatch]);
+  console.log(posts);
   if (isLoading) {
     return <div>로딩 중입니다</div>;
   }
-
   if (error) {
     return <div>{error.message}</div>;
   }

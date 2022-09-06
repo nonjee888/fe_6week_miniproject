@@ -72,6 +72,7 @@ export const posts = createSlice({
     },
   },
   extraReducers: (builder) => {
+    console.log(builder);
     builder
       .addCase(__getPosts.pending, (state) => {
         state.isLoading = true;
