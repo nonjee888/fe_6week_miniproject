@@ -1,18 +1,3 @@
-// import Cookies from "universal-cookie";
-
-// // 쿠키 가져오기
-// // const RefreshCookies = new RefreshCookies();
-
-// export function setRefreshTokenToCookie(refresh_token) {
-//   RefreshCookies.set("refresh_token", refresh_token, { sameSite: "strict" });
-// }
-
-// export function logout() {
-//   console.log("localStorage set logout!");
-//   window.localStorage.setItem("logout", Date.now());
-//   RefreshCookies.remove("refresh_token");
-// }
-
 const getCookie = (name) => {
   let value = "; " + document.cookie;
   let parts = value.split("; " + name + "=");

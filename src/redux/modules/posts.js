@@ -3,10 +3,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const __getPosts = createAsyncThunk(
   "posts/getPosts",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const data = await axios.get("http://52.79.247.187:8080/api/posts");
-      console.log(data.data.data);
+
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -15,15 +15,15 @@ export const __getPosts = createAsyncThunk(
 );
 
 export const __getDetailPosts = createAsyncThunk(
-  "posts/getDetailPosts",
+  "detailPosts/getDetailPosts",
   async (payload, thunkAPI) => {
-    console.log(payload);
+    // console.log(payload);
     try {
       const data = await axios.get(
         `http://52.79.247.187:8080/api/posts/${payload}`
       );
-      console.log(data);
-      return thunkAPI.fulfillWithValue(data.data.data);
+      // console.log(data);
+      return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -36,6 +36,7 @@ export const posts = createSlice({
   name: "post",
   initialState: {
     posts: [],
+    detail: {},
     isLoading: false,
     error: null,
   },
@@ -45,10 +46,18 @@ export const posts = createSlice({
       axios.post("http://52.79.247.187:8080/api/auth/posts", action.payload);
     },
     removePost(state, action) {
+      console.log(state, action);
       let index = state.posts.findIndex((post) => post.id === action.payload);
+
       state.posts.splice(index, 1);
       axios.delete(
-        `http://52.79.247.187:8080/api/auth/posts/${action.payload}`
+        `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`,
+        {
+          headers: {
+            Authorization: action.payload.token,
+            RefreshToken: action.payload.fresh,
+          },
+        }
       );
     },
     updatePost(state, action) {
@@ -57,7 +66,13 @@ export const posts = createSlice({
       );
       state.posts.splice(index, 1, action.payload);
       axios.patch(
-        `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`
+        `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`,
+        {
+          headers: {
+            Authorization: action.payload.token,
+            RefreshToken: action.payload.fresh,
+          },
+        }
       );
     },
     likePost(state, action) {
@@ -67,23 +82,32 @@ export const posts = createSlice({
       state.posts[index].count += 1;
       axios.patch(
         `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`,
-        action.payload
+        action.payload,
+        {
+          headers: {
+            Authorization: action.payload.token,
+            RefreshToken: action.payload.fresh,
+          },
+        }
       );
     },
   },
   extraReducers: (builder) => {
-    console.log(builder);
+    // console.log(builder);
     builder
       .addCase(__getPosts.pending, (state) => {
         state.isLoading = true;
+        console.log("pending");
       })
       .addCase(__getPosts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.posts = action.payload;
+        console.log(action.payload);
       })
       .addCase(__getPosts.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        console.log("rejected");
       });
 
     builder
@@ -91,7 +115,7 @@ export const posts = createSlice({
         state.isLoading = true;
       })
       .addCase(__getDetailPosts.fulfilled, (state, action) => {
-        console.log(__getDetailPosts);
+        // console.log(__getDetailPosts);
         state.isLoading = false;
         state.detail = action.payload;
       })

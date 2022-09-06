@@ -1,20 +1,20 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const __getComments = createAsyncThunk(
-  "comments/getComments",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await axios.get(
-        `http://52.79.247.187:8080/api/posts/${payload}`
-      );
-      console.log(data);
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+// export const __getComments = createAsyncThunk(
+//   "comments/getComments",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const data = await axios.get(
+//         `http://52.79.247.187:8080/api/posts/${payload}`
+//       );
+//       console.log(data);
+//       return data.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
 
 export const comments = createSlice({
   name: "comments",
@@ -48,19 +48,19 @@ export const comments = createSlice({
       );
     },
   },
-  extraReducers: {
-    [__getComments.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__getComments.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.comments = action.payload;
-    },
-    [__getComments.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-  },
+  // extraReducers: {
+  //   [__getComments.pending]: (state) => {
+  //     state.isLoading = true;
+  //   },
+  //   [__getComments.fulfilled]: (state, action) => {
+  //     state.isLoading = false;
+  //     state.comments = action.payload;
+  //   },
+  //   [__getComments.rejected]: (state, action) => {
+  //     state.isLoading = false;
+  //     state.error = action.payload;
+  //   },
+  // },
 });
 
 export let { createComment, removeComment, updateComment } = comments.actions;

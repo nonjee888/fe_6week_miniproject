@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { userSignup } from "../../redux/modules/users";
 import axios from "axios";
 
 const Signuppage = () => {
   let navigate = useNavigate();
-  let dispatch = useDispatch();
   let initialState = {
     nickname: "",
     password: "",

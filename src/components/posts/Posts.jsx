@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Posts = ({ post }) => {
-  console.log(post);
+  // console.log(post);
   let navigate = useNavigate();
   return (
     <>

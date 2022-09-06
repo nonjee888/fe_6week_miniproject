@@ -3,74 +3,40 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import nextId from "react-id-generator";
 import { createComment } from "../../redux/modules/comments";
-import { __getComments } from "../../redux/modules/comments";
+import { __getDetailPosts } from "../../redux/modules/posts";
 import Ment from "../ment/Ment";
 
 const Comment = () => {
-  let comId = nextId();
   let dispatch = useDispatch();
-
   const initialState = {
-    id: 0,
-    post: 0,
+    postid: 0,
+    nickname: "",
     content: "",
   };
-
   let [ment, setMent] = useState("");
   let [review, setReview] = useState(initialState);
   let { id } = useParams();
-  const { isLoading, error, comments } = useSelector(
-    (state) => state?.comments
-  );
-  console.log(comments);
-
+  const { isLoading, error, detail } = useSelector((state) => state?.posts);
+  // console.log(detail);
   useEffect(() => {
-    dispatch(__getComments());
-  }, [dispatch]);
+    dispatch(__getDetailPosts(id));
+  }, []);
   if (isLoading) {
-    return <div>로딩 중....</div>;
+    return <div>...로딩중</div>;
   }
-
   if (error) {
     return <div>{error.message}</div>;
   }
-
-  let commentList = comments.filter((comment) => {
-    return String(comment.post) === id;
-  });
-  console.log(commentList);
   return (
     <div>
       <div>댓글</div>
       <div>
-        <input
-          className="input"
-          type="text"
-          value={ment}
-          onChange={(e) => {
-            setMent(e.target.value);
-            setReview({
-              ...review,
-              id: comId,
-              post: id,
-              content: e.target.value,
-            });
-          }}
-        />
-        <button
-          onClick={() => {
-            dispatch(createComment(review));
-            setReview(initialState);
-            setMent("");
-          }}
-        >
-          댓글 작성
-        </button>
+        <input />
+        <button>댓글 작성</button>
       </div>
       <div>
-        {commentList.map((comment) => {
+        {detail?.data?.commentResponseDtoList?.map((comment) => {
           return <Ment ment={comment} key={comment.id} />;
         })}
       </div>

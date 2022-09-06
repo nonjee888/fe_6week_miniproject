@@ -7,34 +7,37 @@ import axios from "axios";
 
 const Form = () => {
   let navigate = useNavigate();
+  //토큰 유지 확인하기
   const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
   const fresh = getCookie("REFRESH_TOKEN");
+  console.log(fresh);
+  //input content 변수 선언
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
+  //value를 setState해준다
   const onChangeHandler = (event, setState) => setState(event.target.value);
-
+  //value들 submit하기
   const onSubmitHandler = async (event) => {
-    console.log("작동되나요");
-    console.log(event);
+    console.log("dfdf");
     event.preventDefault();
     let req = {
       title: title,
       content: content,
     };
     const formData = new FormData();
+    formData.append("image", image);
+
     let json = JSON.stringify(req);
+
     const titleblob = new Blob([json], { type: "application/json" });
     formData.append("title", titleblob);
+
     const contentblob = new Blob([json], { type: "application/json" });
     formData.append("content", contentblob);
-    const URL = "http://52.79.247.187:8080/api/auth/posts"; //post할 주소
-    //사진 첨부해서 post 할 때 formData 써줌
-    // formData.append("title", title); //title 값 formData에 넣어줌
-    // formData.append("content", content); //content formData에 넣어줌
-    formData.append("image", image);
-    //post
+
+    const URL = "http://52.79.247.187:8080/api/auth/posts";
+
     const data = await axios.post(URL, formData, {
       headers: {
         "content-type": "multipart/form-data",
@@ -52,7 +55,7 @@ const Form = () => {
     const file = event.target.files;
     setImage(file[0]);
   };
-
+  console.log("asdf");
   return (
     <StForm
       className="add-form"
@@ -94,7 +97,7 @@ const Form = () => {
         <Divin>
           <Button type="submit">등록</Button>
           <Button
-            type="submit"
+            type="button"
             onClick={() => {
               navigate("/main");
             }}
