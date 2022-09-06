@@ -1,23 +1,61 @@
 import React from "react";
+import styled from "styled-components";
+import { getCookie } from "../../shared/cookie";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 import { updatePost } from "../../redux/modules/posts";
 
 const Postmodal = ({ post, close }) => {
+  const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
+  const fresh = getCookie("REFRESH_TOKEN");
+  console.log(fresh);
+  console.log(post.data);
   let dispatch = useDispatch();
   const initialState = {
-    id: post.id, ////////id 넘겨주어야하나
-    title: post.title,
-    content: post.content,
+    id: post.data.id,
+    title: post.data.title,
+    content: post.data.content,
+    image: post.data.image,
   };
   const [post1, setPost1] = useState(initialState);
   const [title, setTitle] = useState(post1.title);
   const [content, setContent] = useState(post1.content);
+  const [image, setImage] = useState(post1.image);
+  const onUpdateHandler = async (e) => {
+    e.preventDefault();
+    let req = {
+      title: post.data.title,
+      content: post.data.content,
+    };
 
+    const json = JSON.stringify(req);
+    let formData = new FormData();
+    formData.append("image", image);
+    const titleblob = new Blob([json], { type: "application/json" });
+    formData.append("title", titleblob);
+    const contentblob = new Blob([json], { type: "application/json" });
+    formData.append("content", contentblob);
+
+    console.log(formData);
+    const payload = {
+      id: post.data.id,
+      data: formData,
+      token: token,
+      fresh: fresh,
+    };
+    // navigate("/");
+    dispatch(updatePost(payload));
+    // for (let value of formData.values()) {
+    //   console.log(value);
+    // }
+  };
+  const uploadImage = (event) => {
+    const file = event.target.files;
+    setImage(file[0]);
+  };
   return (
     <Modaldiv className="black-bg show-modal">
-      <ModalContainer className="white-bg">
+      <ModalContainer className="white-bg" onSubmit={onUpdateHandler}>
         <h4>게시글 수정</h4>
         <div>
           <label>제목</label>
@@ -31,6 +69,15 @@ const Postmodal = ({ post, close }) => {
             }}
           />
         </div>
+        <label htmlFor="imgUrl">
+          <File
+            type="file"
+            accept=".gif, .jpg, .png, .jpeg"
+            onChange={uploadImage}
+            id="imgUrl"
+          />
+          // 여기 보여줄 코드 버튼 넣기
+        </label>
         <div>
           <label>내용</label>
           <input
@@ -43,17 +90,12 @@ const Postmodal = ({ post, close }) => {
             }}
           />
         </div>
-        <button
-          className="btn btn-danger"
-          onClick={() => {
-            dispatch(updatePost({ ...post1, title: title, content: content }));
-            close();
-          }}
-        >
+        <button className="btn btn-danger" type="submit">
           수정하기
         </button>
         <button
           className="btn btn-danger"
+          type="button"
           onClick={() => {
             close();
           }}
@@ -64,7 +106,6 @@ const Postmodal = ({ post, close }) => {
     </Modaldiv>
   );
 };
-
 export default Postmodal;
 
 const Modaldiv = styled.div`
@@ -76,8 +117,7 @@ const Modaldiv = styled.div`
   right: 0;
   background: rgba(0, 0, 0, 0.3);
 `;
-
-const ModalContainer = styled.div`
+const ModalContainer = styled.form`
   padding: 30px;
   position: absolute;
   top: calc(50vh - 250px);
@@ -89,4 +129,7 @@ const ModalContainer = styled.div`
   border-radius: 10px;
   width: 400px;
   height: 300px;
+`;
+const File = styled.input`
+  display: none;
 `;

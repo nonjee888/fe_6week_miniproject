@@ -1,9 +1,10 @@
 import React from "react";
+import axios from "axios";
+import styled from "styled-components";
 import { useState } from "react";
+import { instance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../shared/cookie";
-import styled from "styled-components";
-import axios from "axios";
 
 const Form = () => {
   let navigate = useNavigate();
@@ -19,7 +20,6 @@ const Form = () => {
   const onChangeHandler = (event, setState) => setState(event.target.value);
   //value들 submit하기
   const onSubmitHandler = async (event) => {
-    console.log("dfdf");
     event.preventDefault();
     let req = {
       title: title,
@@ -38,15 +38,13 @@ const Form = () => {
 
     const URL = "http://52.79.247.187:8080/api/auth/posts";
 
-    const data = await axios.post(URL, formData, {
+    const data = await instance.post(URL, formData, {
       headers: {
         "content-type": "multipart/form-data",
-        Authorization: token,
-        RefreshToken: fresh,
       },
     });
     console.log(data);
-    if (data.success) {
+    if (data.data.success) {
       navigate("/main");
     }
   };

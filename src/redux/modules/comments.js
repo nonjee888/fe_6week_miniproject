@@ -1,20 +1,52 @@
-import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { instance } from "../../shared/api";
 
-// export const __getComments = createAsyncThunk(
-//   "comments/getComments",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const data = await axios.get(
-//         `http://52.79.247.187:8080/api/posts/${payload}`
-//       );
-//       console.log(data);
-//       return data.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+export const createComment = createAsyncThunk(
+  "comments/CreateComments",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const data = await instance.post("/api/auth/comments/", payload.review);
+
+      return data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const removeComment = createAsyncThunk(
+  "comments/RemoveComments",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const data = await instance.delete(
+        `/api/auth/comments/${payload}`,
+        payload
+      );
+      console.log(data);
+      return payload;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const updateComment = createAsyncThunk(
+  "comments/UpdateComments",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await instance.put(`/api/auth/comments/${payload.id}`, {
+        postId: payload.id,
+        content: payload.content,
+      });
+
+      return data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 export const comments = createSlice({
   name: "comments",
@@ -23,46 +55,50 @@ export const comments = createSlice({
     isLoading: false,
     error: null,
   },
-  reducers: {
-    createComment(state, action) {
-      state.comments.push(action.payload);
-      axios.post("http://52.79.247.187:8080/api/auth/comments");
+  reducers: {},
+  extraReducers: {
+    [createComment.pending]: (state) => {
+      state.isLoading = true;
     },
-    removeComment(state, action) {
+    [createComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.comments = action.payload;
+    },
+    [createComment.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+  },
+  extraReducers: {
+    [removeComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [removeComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
       let index = state.comments.findIndex(
         (comment) => comment.id === action.payload
       );
+      console.log(index);
       state.comments.splice(index, 1);
-      axios.delete(
-        `http://52.79.247.187:8080/api/auth/comments/${action.payload}`
-      );
     },
-    updateComment(state, action) {
-      let index = state.comments.findIndex(
-        (post) => post.id === action.payload.id
-      );
-      state.comments.splice(index, 1, action.payload);
-      axios.patch(
-        `http://52.79.247.187:8080/api/auth/comments/${action.payload.id}`,
-        action.payload
-      );
+    [removeComment.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
-  // extraReducers: {
-  //   [__getComments.pending]: (state) => {
-  //     state.isLoading = true;
-  //   },
-  //   [__getComments.fulfilled]: (state, action) => {
-  //     state.isLoading = false;
-  //     state.comments = action.payload;
-  //   },
-  //   [__getComments.rejected]: (state, action) => {
-  //     state.isLoading = false;
-  //     state.error = action.payload;
-  //   },
-  // },
+  extraReducers: {
+    [updateComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [updateComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.comments = action.payload;
+    },
+    [updateComment.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+  },
 });
-
-export let { createComment, removeComment, updateComment } = comments.actions;
 
 export default comments;

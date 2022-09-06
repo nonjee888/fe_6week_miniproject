@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux/";
 import Commentmodal from "../commentmodal/Commentmodal";
 import { removeComment } from "../../redux/modules/comments";
+import { Navigate } from "react-router-dom";
 
 const Ment = ({ ment }) => {
   let dispatch = useDispatch();
@@ -9,7 +10,6 @@ const Ment = ({ ment }) => {
   const close = () => {
     setModal(false);
   };
-
   return (
     <>
       {modal ? <Commentmodal ment={ment} close={close} /> : null}
@@ -24,7 +24,7 @@ const Ment = ({ ment }) => {
         </button>
         <button
           onClick={() => {
-            dispatch(removeComment(ment.postId));
+            dispatch(removeComment(ment.id));
           }}
         >
           삭제하기
