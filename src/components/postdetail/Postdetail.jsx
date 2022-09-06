@@ -1,24 +1,24 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { onLikePost } from "../../redux/modules/posts";
 import { getCookie } from "../../shared/cookie";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { __getDetailPosts } from "../../redux/modules/posts";
-import { likePost, removePost } from "../../redux/modules/posts";
+import { removePost } from "../../redux/modules/posts";
 import Postmodal from "../postmodal/Postmodal";
 import { useParams } from "react-router";
 
 const Postdetail = () => {
   const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
   const fresh = getCookie("REFRESH_TOKEN");
-  console.log(fresh);
+  // console.log(fresh);
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let [modal, setModal] = useState(false);
   const { isLoading, error, detail } = useSelector((state) => state?.posts);
-  // console.log(detail.data.id);
   let { id } = useParams();
   useEffect(() => {
     dispatch(__getDetailPosts(id));
@@ -40,29 +40,40 @@ const Postdetail = () => {
       token: token,
       fresh: fresh,
     };
-    dispatch(removePost(payload))
-      .unwrap()
-      .then((originalPromiseResult) => {
-        console.log("삭제성공");
-      })
-      .catch((rejectedValueOrSerializedError) => {
-        // handle error here
-      });
-
-    // navigate("/main");
-
-    // const URL = "http://52.79.247.187:8080/api/auth/posts";
-    // const data = await axios.delete(URL, detail.data.id, {
-    //   headers: {
-    //     Authorization: token,
-    //     RefreshToken: fresh,
-    //   },
-    // });
-    // console.log(data);
-    // if (data.success) {
-    //   navigate("/main");
-    // }
+    dispatch(removePost(payload));
   };
+
+  const onLike = async (event) => {
+    event.preventDefault();
+    let add1 = { ...detail, likes: detail.data.likes + 1 };
+    const payload = {
+      token: token,
+      fresh: fresh,
+    };
+    dispatch(onLikePost({ add1, payload }));
+  };
+
+  // .unwrap()
+  // .then((originalPromiseResult) => {
+  //   console.log("삭제성공");
+  // })
+  // .catch((rejectedValueOrSerializedError) => {
+  //   // handle error here
+  // });
+
+  // navigate("/main");
+
+  // const URL = "http://52.79.247.187:8080/api/auth/posts";
+  // const data = await axios.delete(URL, detail.data.id, {
+  //   headers: {
+  //     Authorization: token,
+  //     RefreshToken: fresh,
+  //   },
+  // });
+  // console.log(data);
+  // if (data.success) {
+  //   navigate("/main");
+  // }
 
   return (
     <>
@@ -86,16 +97,10 @@ const Postdetail = () => {
             <p>{detail?.data?.content}</p>
           </div>
           <div>
-            <p>{detail?.data?.likes}</p>
+            <p>{detail?.data?.createdAt.likes}</p>
           </div>
           <div>
-            <Button
-              onClick={() => {
-                dispatch(likePost(detail?.data?.id));
-              }}
-            >
-              💙
-            </Button>
+            <Button onClick={onLike}>💙</Button>
 
             <Button
               onClick={() => {

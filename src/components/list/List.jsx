@@ -9,7 +9,6 @@ const List = () => {
   //토큰 저장되는지 확인하기
   let token = getCookie("ACCESS_TOKEN");
   let fresh = getCookie("REFRESH_TOKEN");
-  console.log(fresh);
 
   let dispatch = useDispatch();
   const { isLoading, error, posts } = useSelector((state) => state?.posts);
