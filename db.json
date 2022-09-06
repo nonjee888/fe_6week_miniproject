@@ -1,0 +1,86 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "nickname": "abc123",
+      "title": "안녕하세요",
+      "content": "일기장입니다",
+      "imgUrl": "",
+      "likes": 1
+    },
+    {
+      "id": 2,
+      "nickname": "hello",
+      "title": "everyone",
+      "content": "nice to meet you",
+      "imgUrl": "",
+      "likes": 1
+    },
+    {
+      "id": 3,
+      "nickname": "1234567",
+      "title": "sososososo",
+      "content": "hahahahaha",
+      "imgUrl": "",
+      "likes": 1
+    },
+    {
+      "id": 4,
+      "nickname": "123",
+      "title": "안요",
+      "content": "일니다",
+      "imgUrl": "",
+      "likes": 1
+    },
+    {
+      "id": 5,
+      "nickname": "hlo",
+      "title": "evee",
+      "content": "nio meet you",
+      "imgUrl": "",
+      "likes": 1
+    },
+    {
+      "id": 6,
+      "nickname": "12567",
+      "title": "soso",
+      "content": "haha",
+      "imgUrl": "",
+      "likes": 1
+    }
+  ],
+  "comments": [
+    {
+      "id": 0,
+      "postId": 1,
+      "content": "test입니다."
+    },
+    {
+      "id": 1,
+      "postId": 1,
+      "content": "test입니다."
+    },
+    {
+      "id": 2,
+      "postId": 1,
+      "content": "test입니다."
+    }
+  ],
+  "users": [
+    {
+      "nickname": "zintest1",
+      "password": "zin123",
+      "passwordConfirm": "zin123"
+    },
+    {
+      "nickname": "1234",
+      "password": "1234",
+      "passwordConfirm": "1234"
+    },
+    {
+      "nickname": "asdf",
+      "password": "asdf",
+      "passwordConfirm": "asdf"
+    }
+  ]
+}

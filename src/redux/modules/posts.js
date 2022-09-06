@@ -1,60 +1,130 @@
+import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from 'axios';
 
 export const __getPosts = createAsyncThunk(
-    "posts/getPosts",
-    async (payload, thunkAPI) => {
-        try {
-            const data = await axios.get("http://15.164.228.166/api/posts");
-            return thunkAPI.fulfillWithValue(data.data);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
+  "posts/getPosts",
+  async (_, thunkAPI) => {
+    try {
+      const data = await axios.get("http://52.79.247.187:8080/api/posts");
+
+      return thunkAPI.fulfillWithValue(data.data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
     }
+  }
 );
 
+export const __getDetailPosts = createAsyncThunk(
+  "detailPosts/getDetailPosts",
+  async (payload, thunkAPI) => {
+    // console.log(payload);
+    try {
+      const data = await axios.get(
+        `http://52.79.247.187:8080/api/posts/${payload}`
+      );
+      // console.log(data);
+      return data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+//http://52.79.247.187:8080/api/posts"
+
 export const posts = createSlice({
-    name:"post",
-    initialState: {
-        posts: [],
-        isLoading: false,
-        error: null,
+  name: "post",
+  initialState: {
+    posts: [],
+    detail: {},
+    isLoading: false,
+    error: null,
+  },
+  reducers: {
+    createPost(state, action) {
+      state.posts.push(action.payload);
+      axios.post("http://52.79.247.187:8080/api/auth/posts", action.payload);
     },
-   reducers: {
-        createPost(state, action){
-            state.posts.push(action.payload);
-            axios.post("http://15.164.228.166/api/auth/posts", action.payload);
-        },
-        removePost(state, action){
-            let index = state.posts.findIndex(post => post.id === action.payload);
-            state.posts.splice(index,1);
-            axios.delete(`http://15.164.228.166/api/auth/posts/${action.payload}`);
-        },
-        updatePost(state, action){
-            let index = state.posts.findIndex(post => post.id === action.payload.id);
-            state.posts.splice(index, 1, action.payload);
-            axios.patch(`http://15.164.228.166/api/auth/posts/${action.payload.id}`)
-        },
-        likePost(state, action){
-            let index = state.posts.findIndex(post => post.id === action.payload.id);
-            state.posts[index].count += 1;
-            axios.patch(`http://15.164.228.166/api/auth/posts/like/${action.payload.id}`, action.payload);
-        },
-   },
-   extraReducers: {
-    [__getPosts.pending]: (state) => {
-        state.isLoading = true;         // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    removePost(state, action) {
+      console.log(state, action);
+      let index = state.posts.findIndex((post) => post.id === action.payload);
+
+      state.posts.splice(index, 1);
+      axios.delete(
+        `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`,
+        {
+          headers: {
+            Authorization: action.payload.token,
+            RefreshToken: action.payload.fresh,
+          },
+        }
+      );
     },
-    [__getPosts.fulfilled]: (state, action) => {
-        state.isLoading = false;        // 네트워크 요청이 끝났으니, false로 변경합니다.
-        state.posts = action.payload;   // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+    updatePost(state, action) {
+      let index = state.posts.findIndex(
+        (post) => post.id === action.payload.id
+      );
+      state.posts.splice(index, 1, action.payload);
+      axios.patch(
+        `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`,
+        {
+          headers: {
+            Authorization: action.payload.token,
+            RefreshToken: action.payload.fresh,
+          },
+        }
+      );
     },
-    [__getPosts.rejected]: (state, action) => {
-        state.isLoading = false;        // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-        state.error = action.payload;   // catch 된 error 객체를 state.error에 넣습니다.
+    likePost(state, action) {
+      let index = state.posts.findIndex(
+        (post) => post.id === action.payload.id
+      );
+      state.posts[index].count += 1;
+      axios.patch(
+        `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`,
+        action.payload,
+        {
+          headers: {
+            Authorization: action.payload.token,
+            RefreshToken: action.payload.fresh,
+          },
+        }
+      );
     },
-   },
-})
+  },
+  extraReducers: (builder) => {
+    // console.log(builder);
+    builder
+      .addCase(__getPosts.pending, (state) => {
+        state.isLoading = true;
+        console.log("pending");
+      })
+      .addCase(__getPosts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.posts = action.payload;
+        console.log(action.payload);
+      })
+      .addCase(__getPosts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        console.log("rejected");
+      });
+
+    builder
+      .addCase(__getDetailPosts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__getDetailPosts.fulfilled, (state, action) => {
+        // console.log(__getDetailPosts);
+        state.isLoading = false;
+        state.detail = action.payload;
+      })
+      .addCase(__getDetailPosts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+  },
+});
 
 export let { createPost, removePost, updatePost, likePost } = posts.actions;
 
