@@ -35,6 +35,7 @@ export const removeComment = createAsyncThunk(
 export const updateComment = createAsyncThunk(
   "comments/UpdateComments",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
       const data = await instance.put(`/api/auth/comments/${payload.id}`, {
         postId: payload.id,

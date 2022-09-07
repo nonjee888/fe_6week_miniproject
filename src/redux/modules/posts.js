@@ -13,7 +13,6 @@ export const __getPosts = createAsyncThunk(
     }
   }
 );
-
 export const __getDetailPosts = createAsyncThunk(
   "detailPosts/getDetailPosts",
   async (payload, thunkAPI) => {
@@ -26,7 +25,6 @@ export const __getDetailPosts = createAsyncThunk(
     }
   }
 );
-
 export const updatePost = createAsyncThunk(
   "post/upDate",
   async (payload, thunkApI) => {
@@ -49,9 +47,8 @@ export const updatePost = createAsyncThunk(
     }
   }
 );
-
 export const onLikePost = createAsyncThunk(
-  "post/upDate",
+  "like/onLikePost",
   async (payload, thunkApI) => {
     console.log(payload);
     try {
@@ -65,34 +62,18 @@ export const onLikePost = createAsyncThunk(
     }
   }
 );
-
-// export const updatePost = createAsyncThunk(
-//   "post/upDate",
-//   async (payload, thunkApI) => {
-//     console.log(payload);
-//     try {
-//       const data = await axios.put(
-//         `http://54.180.31.216/api/auth/post/${payload.id}`,
-//         payload.id,
-//         {
-//           headers: {
-//             "Content-Type": "multipart/form",
-//             Authorization: payload.token,
-//             RefreshToken: payload.fresh,
-//           },
-//         }
-//       );
-//       console.log(payload);
-//       return thunkApI.fulfillWithValue(data.data);
-//       console.log(data);
-//     } catch (error) {
-//       return thunkApI.rejectWithValue(error);
-//     }
-//   }
-// );
-
-//http://52.79.247.187:8080/api/posts"
-
+export const removePost = createAsyncThunk(
+  "post/upDate",
+  async (payload, thunkApI) => {
+    try {
+      const data = await instance.delete(`/api/auth/posts/${payload.id}`);
+      console.log(data);
+      return thunkApI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkApI.rejectWithValue(error);
+    }
+  }
+);
 export const posts = createSlice({
   name: "post",
   initialState: {
@@ -101,36 +82,7 @@ export const posts = createSlice({
     isLoading: false,
     error: null,
   },
-  reducers: {
-    createPost(state, action) {
-      state.posts.push(action.payload);
-      instance.post("/api/auth/posts", action.payload);
-    },
-    removePost(state, action) {
-      console.log(state, action);
-      let index = state.posts.findIndex((post) => post.id === action.payload);
-
-      state.posts.splice(index, 1);
-      instance.delete(`/api/auth/posts/${action.payload.id}`);
-    },
-    // updatePost(state, action) {
-    //   let index = state.posts.findIndex(
-    //     (post) => post.id === action.payload.id
-    //   );
-    //   state.posts.splice(index, 1, action.payload);
-    //   console.log(action.payload);
-    //   axios.put(
-    //     `http://52.79.247.187:8080/api/auth/posts/${action.payload.id}`,
-    //     action.payload,
-    //     {
-    //       headers: {
-    //         Authorization: action.payload.token,
-    //         RefreshToken: action.payload.fresh,
-    //       },
-    //     }
-    //   );
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // console.log(builder);
     builder
@@ -148,7 +100,6 @@ export const posts = createSlice({
         state.error = action.payload;
         // console.log("rejected");
       });
-
     builder
       .addCase(__getDetailPosts.pending, (state) => {
         state.isLoading = true;
@@ -162,7 +113,6 @@ export const posts = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       });
-
     builder
       .addCase(onLikePost.pending, (state) => {
         state.isLoading = true;
@@ -175,9 +125,21 @@ export const posts = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       });
+    builder
+      .addCase(removePost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removePost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log(state.detail);
+      })
+      .addCase(removePost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
   },
 });
 
-export let { createPost, removePost } = posts.actions;
+export let { createPost } = posts.actions;
 
 export default posts;

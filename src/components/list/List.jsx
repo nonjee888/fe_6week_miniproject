@@ -12,18 +12,15 @@ const List = () => {
 
   let dispatch = useDispatch();
   const { isLoading, error, posts } = useSelector((state) => state?.posts);
-  // console.log(posts);
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
-  // console.log(posts);
   if (isLoading) {
     return <div>로딩 중입니다</div>;
   }
   if (error) {
     return <div>{error.message}</div>;
   }
-
   return (
     <div>
       {posts?.map((post) => (
@@ -32,5 +29,4 @@ const List = () => {
     </div>
   );
 };
-
 export default List;

@@ -1,6 +1,6 @@
 import React from "react";
-import axios from "axios";
 import styled from "styled-components";
+import Postmodal from "../postmodal/Postmodal";
 import { onLikePost } from "../../redux/modules/posts";
 import { getCookie } from "../../shared/cookie";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { __getDetailPosts } from "../../redux/modules/posts";
 import { removePost } from "../../redux/modules/posts";
-import Postmodal from "../postmodal/Postmodal";
+
 import { useParams } from "react-router";
 
 const Postdetail = () => {
@@ -74,50 +74,42 @@ const Postdetail = () => {
   // if (data.success) {
   //   navigate("/main");
   // }
-
+  console.log(detail);
   return (
     <>
       {modal ? <Postmodal post={detail} close={close} /> : null}
-
       <PostBox className="modal">
         <UndoButton onClick={() => navigate("/main")}>이전으로</UndoButton>
         <InnerBox>
           <div>
-            <h2>{detail?.data?.nickname}</h2>
-          </div>
-          <div>
-            <p>{detail?.data?.title}</p>
-          </div>
-          <div>
-            <p>
-              <img src={detail?.data?.imgUrl} alt="image" />
-            </p>
-          </div>
-          <div>
-            <p>{detail?.data?.content}</p>
-          </div>
-          <div>
-            <p>{detail?.data?.createdAt.likes}</p>
-          </div>
-          <div>
-            <Button onClick={onLike}>💙</Button>
-
-            <Button
-              onClick={() => {
-                setModal(true);
-              }}
-            >
-              수정
-            </Button>
-
-            <Button
-              onClick={
-                onDeleteHandler
-                // navigate("/main", { replace: true });
-              }
-            >
-              삭제
-            </Button>
+            <div>
+              <h2>{detail?.data?.nickname}</h2>
+            </div>
+            <div>
+              <p>{detail?.data?.title}</p>
+            </div>
+            <div>
+              <ImgDiv>
+                <img src={detail?.data?.imgUrl} alt="image" />
+              </ImgDiv>
+            </div>
+            <div>
+              <p>{detail?.data?.content}</p>
+            </div>
+            <div>
+              <p>{detail?.data?.likes}</p>
+            </div>
+            <div>
+              <HeartButton onClick={onLike}>💙</HeartButton>
+              <Button
+                onClick={() => {
+                  setModal(true);
+                }}
+              >
+                수정
+              </Button>
+              <Button onClick={onDeleteHandler}>삭제</Button>
+            </div>
           </div>
         </InnerBox>
       </PostBox>
@@ -138,7 +130,7 @@ const PostBox = styled.div`
 `;
 const UndoButton = styled.button`
   margin-top: 30px;
-  margin-left: 30px;
+  margin-left: 480px;
   width: 80px;
   height: 35px;
   border: none;
@@ -160,4 +152,27 @@ const InnerBox = styled.div`
   margin-left: 40px;
   margin-top: 20px;
   display: block;
+`;
+const ImgDiv = styled.div`
+  width: 300px;
+  height: 300px;
+  bottom: 20px;
+  right: 30px;
+  justify-content: left;
+  border-radius: 30px;
+  overflow: hidden;
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+const HeartButton = styled.button`
+  margin-top: 100px;
+  margin-left: 10px;
+  width: 50px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background: none;
 `;
