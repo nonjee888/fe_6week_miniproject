@@ -1,7 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Mylist = () => {
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
+
   return <MyContainer></MyContainer>;
 };
 

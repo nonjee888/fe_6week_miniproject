@@ -8,10 +8,6 @@ import { getCookie } from "../../shared/cookie";
 
 const Form = () => {
   let navigate = useNavigate();
-  //토큰 유지 확인하기
-  const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
-  const fresh = getCookie("REFRESH_TOKEN");
-  console.log(fresh);
   //input content 변수 선언
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");

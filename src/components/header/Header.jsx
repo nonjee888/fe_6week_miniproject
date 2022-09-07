@@ -46,7 +46,6 @@ const StHeader = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
 `;
-
 const Button = styled.button`
   width: 80px;
   height: 35px;
@@ -55,12 +54,11 @@ const Button = styled.button`
   margin-right: 10px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
-
 const ButtonGroup = styled.div`
   margin-left: 900px;
   margin-top: 100px;
   width: 500px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 `;
 
 // const HeaderBox = styled.form`

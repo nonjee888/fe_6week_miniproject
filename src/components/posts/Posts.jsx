@@ -22,10 +22,10 @@ const Posts = ({ post }) => {
               <div>
                 <p>{post?.likes}</p>
               </div>
-              <div>
-                <p>{post?.imgUrl}</p>
-              </div>
             </Texts>
+            <ImgDiv>
+              <img src={post?.imgUrl} alt="image" />
+            </ImgDiv>
           </PostTitle>
         </PostBody>
       </div>
@@ -35,10 +35,11 @@ const Posts = ({ post }) => {
 
 export default Posts;
 
-const PostTitle = styled.h4`
+const PostTitle = styled.div`
   margin-top: 40px;
   margin-left: 68px;
   background-color: white;
+  position: relative;
   justify-content: space-between;
   display: flex;
   border-radius: 10px;
@@ -60,4 +61,18 @@ const PostBody = styled.div`
 const Texts = styled.div`
   margin-top: 30px;
   margin-left: 30px;
+`;
+const ImgDiv = styled.div`
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  bottom: 50px;
+  right: 30px;
+  border-radius: 30px;
+  overflow: hidden;
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;

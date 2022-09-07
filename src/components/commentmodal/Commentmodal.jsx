@@ -16,7 +16,7 @@ const Commentmodal = ({ ment, close }) => {
   const [content, setContent] = useState(ment1.content);
   const payload = {
     id: ment.id,
-    content: ment.content,
+    content: content,
     token: token,
     fresh: fresh,
   };

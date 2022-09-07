@@ -6,6 +6,7 @@ function App() {
   const StRouter = styled.div`
     background-color: aliceblue;
     max-width: 1200px;
+    min-width: 1200px;
     height: 1200px;
     margin: 0 auto;
     background-attachment: fixed;
