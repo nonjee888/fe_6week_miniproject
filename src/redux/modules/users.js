@@ -21,28 +21,6 @@ export const __userLogin = createAsyncThunk(
   }
 );
 
-// export const userSlice = createSlice({
-//   name: "userLogout",
-//   initialState: {
-//     isLoading: false,
-//     userInfo: null,
-//     userToken,
-//     error: null,
-//     success: false,
-//   },
-//   reducers: {
-//     logout(state) {
-//       deleteCookie("ACCESS_TOKEN");
-//       deleteCookie("REFRESH_TOKEN");
-//       localStorage.removeItem("nickname");
-//       state.isLoading = false;
-//       state.userInfo = null;
-//       state.userToken = null;
-//       state.error = null;
-//     },
-//   },
-// });
-
 export const users = createSlice({
   name: "users",
   initialState: {

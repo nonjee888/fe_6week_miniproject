@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 function App() {
   const StRouter = styled.div`
-    background-color: aliceblue;
+    background-color: #c3e5e7;
     max-width: 1200px;
     min-width: 1200px;
     height: 1200px;

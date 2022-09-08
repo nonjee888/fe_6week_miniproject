@@ -4,13 +4,11 @@ import Posts from "../posts/Posts";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../shared/cookie";
 import { __getPosts } from "../../redux/modules/posts";
 
 const Mylist = () => {
   let nickname = localStorage.getItem("nickname");
-  let navigate = useNavigate();
   let dispatch = useDispatch();
   let token = getCookie("ACCESS_TOKEN");
   let fresh = getCookie("FRESH_TOKEN");
@@ -30,7 +28,7 @@ const Mylist = () => {
   });
   return (
     <MyContainer>
-      <StP>내 게시글 보기</StP>
+      <StP>나의 게시글</StP>
       {postList.map((post) => (
         <Posts post={post} key={post.id} />
       ))}
@@ -41,12 +39,14 @@ const Mylist = () => {
 export default Mylist;
 
 const MyContainer = styled.div`
-  width: 1150px;
+  width: 1300px;
   height: 900px;
   margin: auto;
   border-radius: 10px;
 `;
-const StP = styled.div`
+const StP = styled.h1`
+  font-family: "IBM Plex Sans KR", sans-serif;
+  color: #ffffff;
   margin-left: 500px;
   margin-top: 50px;
 `;

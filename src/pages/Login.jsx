@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { banner } from "../img";
+import { header2 } from "../img";
 import Loginpage from "../components/loginpage/Loginpage";
 
 const Login = () => {
@@ -19,7 +19,7 @@ const StHeader = styled.div`
   margin: auto;
   display: flex;
   align-items: center;
-  background-image: url(${banner});
+  background-image: url(${header2});
   background-size: cover;
   background-repeat: no-repeat;
 `;

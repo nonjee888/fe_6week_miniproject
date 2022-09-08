@@ -39,37 +39,68 @@ const Comment = () => {
   }
   return (
     <div>
-      <div>댓글</div>
-      <div>
-        <input
-          type="text"
-          value={ment}
-          onChange={(e) => {
-            setMent(e.target.value);
-            setReview({
-              ...review,
-              postId: Number(id),
-              content: e.target.value,
-            });
-          }}
-        />
-        <button
-          onClick={() => {
-            dispatch(createComment(payload));
-            setReview(initialState);
-            setMent("");
-          }}
-        >
-          댓글 작성
-        </button>
-      </div>
-      <div>
-        {detail?.data?.commentResponseDtoList?.map((comment) => {
-          return <Ment ment={comment} key={comment.id} postId={postId} />;
-        })}
-      </div>
+      <Divin>
+        <div>
+          <Input
+            type="text"
+            value={ment}
+            onChange={(e) => {
+              setMent(e.target.value);
+              setReview({
+                ...review,
+                postId: Number(id),
+                content: e.target.value,
+              });
+            }}
+          />
+          <Button
+            onClick={() => {
+              dispatch(createComment(payload));
+              setReview(initialState);
+              setMent("");
+            }}
+          >
+            작성
+          </Button>
+        </div>
+        <div>
+          {detail?.data?.commentResponseDtoList?.map((comment) => {
+            return <Ment ment={comment} key={comment.id} postId={postId} />;
+          })}
+        </div>
+      </Divin>
     </div>
   );
 };
 
 export default Comment;
+
+const Divin = styled.div`
+  margin-top: 80px;
+  margin-left: 310px;
+`;
+
+const Button = styled.button`
+  margin-left: 16px;
+  width: 60px;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  background: #118ba3;
+  color: #ffffff;
+  &:hover {
+    color: #ffffff;
+    background: #cc3723;
+    transition: all 0.2s linear;
+    overflow: hidden;
+    box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  }
+`;
+
+const Input = styled.input`
+  border: #e6e6fa;
+  border-radius: 5px;
+  width: 500px;
+  height: 30px;
+`;

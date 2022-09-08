@@ -72,7 +72,7 @@ const Form = () => {
               onChange={uploadImage}
               id="imgUrl"
             />
-            // 여기 보여줄 코드 버튼 넣기
+            사진첨부
           </label>
         </Divin>
 
@@ -106,7 +106,15 @@ export default Form;
 
 const Divin = styled.div`
   padding: 20px;
+  font-family: "IBM Plex Sans KR", sans-serif;
 `;
+
+const Divin2 = styled.div`
+  padding: 20px;
+  float: left;
+  display: flex;
+`;
+
 const StForm = styled.form`
   width: 800px;
   height: 100%;
@@ -114,6 +122,7 @@ const StForm = styled.form`
 `;
 const FormContainer = styled.div`
   display: block;
+  font-family: "IBM Plex Sans KR", sans-serif;
 `;
 const StTitle = styled.input`
   margin-top: 30px;
@@ -122,8 +131,10 @@ const StTitle = styled.input`
   height: 50px;
   border: none;
   border-radius: 6px;
-  /* font-family: ; */
+  font-family: "IBM Plex Sans KR", sans-serif;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  background: #f0ffff;
+  font-size: 11pt;
 `;
 const StBody = styled.textarea`
   width: 500px;
@@ -133,15 +144,30 @@ const StBody = styled.textarea`
   float: right;
   margin-right: 120px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  background: #f0ffff;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: 15pt;
 `;
 const Button = styled.button`
   margin-top: 20px;
-  margin-left: 350px;
-  width: 80px;
+  margin-left: 176px;
+  width: 120px;
   height: 35px;
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  font-family: "IBM Plex Sans KR", sans-serif;
+  background: #e6e6fa;
+  color: #800080;
+  background: #118ba3;
+  color: #ffffff;
+  &:hover {
+    color: #ffffff;
+    background: #cc3723;
+    transition: all 0.2s linear;
+    overflow: hidden;
+    box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  }
 `;
 
 const File = styled.input`

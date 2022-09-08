@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { __getDetailPosts } from "../../redux/modules/posts";
 import { removePost } from "../../redux/modules/posts";
-
 import { useParams } from "react-router";
 
 const Postdetail = () => {
@@ -37,7 +36,7 @@ const Postdetail = () => {
   const onDeleteHandler = async (event) => {
     event.preventDefault();
     const payload = {
-      id: detail.data.id,
+      id: detail.id,
       token: token,
       fresh: fresh,
     };
@@ -46,12 +45,7 @@ const Postdetail = () => {
 
   const onLike = async (event) => {
     event.preventDefault();
-    let add1 = { ...detail, likes: detail.data.likes + 1 };
-    const payload = {
-      token: token,
-      fresh: fresh,
-    };
-    dispatch(onLikePost({ add1, payload }));
+    dispatch(onLikePost(id));
   };
 
   // .unwrap()
@@ -80,83 +74,144 @@ const Postdetail = () => {
     <>
       {modal ? <Postmodal post={detail} close={close} /> : null}
       <PostBox className="modal">
-        <UndoButton onClick={() => navigate("/main")}>이전으로</UndoButton>
-        <InnerBox>
-          <div>
-            <div>
-              <h2>{detail?.data?.nickname}</h2>
-            </div>
-            <div>
-              <p>{detail?.data?.title}</p>
-            </div>
-            <div>
-              <ImgDiv>
-                <img src={detail?.data?.imgUrl} alt="image" />
-              </ImgDiv>
-            </div>
-            <div>
-              <p>{detail?.data?.content}</p>
-            </div>
-            <div>
-              <p>{detail?.data?.likes}</p>
-            </div>
-            <div>
-              <HeartButton onClick={onLike}>💙</HeartButton>
-              <Button
-                onClick={() => {
-                  setModal(true);
-                }}
-              >
-                수정
-              </Button>
-              <Button onClick={onDeleteHandler}>삭제</Button>
-            </div>
-          </div>
-        </InnerBox>
+        <Innerbox>
+          <Divintitle>
+            <h2>{detail?.title}</h2>
+          </Divintitle>
+
+          <Divinimage>
+            <ImgDiv>
+              <img src={detail?.imgUrl} alt="image" />
+            </ImgDiv>
+          </Divinimage>
+        </Innerbox>
+
+        <Innerbox2>
+          <Divinback>
+            <UndoButton onClick={() => navigate("/main")}>🔙</UndoButton>
+          </Divinback>
+
+          <Divinname>
+            <label>ID :</label>
+            {detail?.nickname}
+          </Divinname>
+
+          <Divincontext>
+            <div>{detail?.content}</div>
+          </Divincontext>
+
+          <Divin3button>
+            <Divinlike>
+              <p>{detail?.likes}</p>
+            </Divinlike>
+
+            <HeartButton onClick={onLike}>💙</HeartButton>
+            <HeartButton
+              onClick={() => {
+                setModal(true);
+              }}
+            >
+              ✍️
+            </HeartButton>
+            <HeartButton onClick={onDeleteHandler}>🗑️</HeartButton>
+          </Divin3button>
+        </Innerbox2>
       </PostBox>
     </>
   );
 };
-
 export default Postdetail;
+
+const Innerbox = styled.div`
+  border: none;
+  width: 300px;
+`;
+
+const Divincontext = styled.div`
+  border: none;
+  width: 250px;
+  height: 300px;
+  margin-top: 50px;
+  margin-left: 35px;
+  background: #ffffff;
+
+  border-radius: 6px;
+`;
+
+const Innerbox2 = styled.div`
+  border: none;
+  width: 290px;
+`;
+
+const Divintitle = styled.div`
+  border: none;
+  width: 300px;
+  margin-left: 10px;
+`;
+
+const Divinimage = styled.div`
+  border: none;
+  width: 300px;
+  margin-left: 10px;
+`;
+const Divinlike = styled.div`
+  border: none;
+  float: left;
+  color: gray;
+`;
+
+const Divinback = styled.div`
+  border: none;
+  width: 40px;
+  margin-left: 240px;
+  margin-top: 5px;
+`;
+
+const Divin3button = styled.div`
+  border: none;
+  width: 194px;
+  float: right;
+  margin-top: 30px;
+`;
+
+const Divinname = styled.div`
+  border: none;
+  width: 105px;
+  height: 40px;
+  display: flex;
+  margin-left: 190px;
+  float: right;
+`;
 
 const PostBox = styled.div`
   width: 600px;
-  height: 400px;
-  background-color: white;
+  height: 500px;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   margin-top: 40px;
   margin-left: 300px;
+  display: flex;
+  font-family: "IBM Plex Sans KR", sans-serif;
 `;
 const UndoButton = styled.button`
-  margin-top: 30px;
-  margin-left: 480px;
-  width: 80px;
-  height: 35px;
+  margin-top: 1px;
+  margin-right: 30px;
+  width: 45px;
+  height: 40px;
   border: none;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  background: none;
+  font-size: 20pt;
+  & hover {
+    transform: scale(1);
+    transition: all 0.2s linear;
+    overflow: hidden;
+  }
 `;
-const Button = styled.button`
-  margin-top: 100px;
-  margin-left: 10px;
-  width: 50px;
-  height: 35px;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
-`;
-const InnerBox = styled.div`
-  width: 500px;
-  height: 300px;
-  margin-left: 40px;
-  margin-top: 20px;
-  display: block;
-`;
+
 const ImgDiv = styled.div`
   width: 300px;
-  height: 300px;
+  height: 400px;
   bottom: 20px;
   right: 30px;
   justify-content: left;
@@ -166,14 +221,25 @@ const ImgDiv = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    & hover {
+      transform: scale(1.3);
+      transition: all 0.2s linear;
+      overflow: hidden;
+    }
   }
 `;
 const HeartButton = styled.button`
-  margin-top: 100px;
+  margin-top: 10px;
   margin-left: 10px;
   width: 50px;
   height: 35px;
   border: none;
   border-radius: 5px;
   background: none;
+  font-size: 15pt;
+  & hover {
+    transform: scale(1.9);
+    transition: all 0.2s linear;
+    overflow: hidden;
+  }
 `;

@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { banner } from "../img";
+import { header2 } from "../img";
 import Signuppage from "../components/signuppage/Signuppage";
-import Testsignup from "../components/signuppage/Signuppage";
 
 const Signup = () => {
   return (
     <StBody>
       <StHeader />
       <Signuppage />
-      {/* <Testsignup /> */}
     </StBody>
   );
 };
@@ -21,7 +19,7 @@ const StHeader = styled.div`
   margin: auto;
   display: flex;
   align-items: center;
-  background-image: url(${banner});
+  background-image: url(${header2});
   background-size: cover;
   background-repeat: no-repeat;
 `;

@@ -19,7 +19,7 @@ export const __getDetailPosts = createAsyncThunk(
     try {
       const data = await instance.get(`/api/posts/${payload}`);
       console.log(data);
-      return data.data;
+      return data.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -55,10 +55,11 @@ export const onLikePost = createAsyncThunk(
     console.log(payload);
     try {
       const data = await instance.post(
-        `/api/auth/posts/likes/${payload.add1.data.id}`,
+        `/api/auth/posts/likes/${payload}`,
         {} //post는 두번째 인자가 데이터가 들어가야해서 {}를 넣어줌 데이터가 없으면 headers를 데이터로 인식
       );
-      return thunkApI.fulfillWithValue(data.data);
+      console.log(data);
+      return payload;
     } catch (error) {
       return thunkApI.rejectWithValue(error);
     }
@@ -80,7 +81,15 @@ export const posts = createSlice({
   name: "post",
   initialState: {
     posts: [],
-    detail: {},
+    detail: {
+      id: 0,
+      nickname: "",
+      title: "",
+      content: "",
+      imgUrl: "",
+      likes: 0,
+      commentResponseDtoList: [],
+    },
     isLoading: false,
     error: null,
   },
@@ -121,6 +130,7 @@ export const posts = createSlice({
       })
       .addCase(onLikePost.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.detail = { ...state.detail, likes: state.detail.likes };
         console.log(state.detail);
       })
       .addCase(onLikePost.rejected, (state, action) => {
