@@ -68,7 +68,17 @@ const Signuppage = () => {
           </Divin>
         </InputGroup>
         <DivinSubmit>
-          <Button type="submit">회원가입</Button>
+          <ButtonGroup>
+            <Button type="button">회원가입</Button>
+            <Button
+              type="button"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              이전으로
+            </Button>
+          </ButtonGroup>
         </DivinSubmit>
       </Stcontainer>
     </StSignupbox>
@@ -79,7 +89,7 @@ export default Signuppage;
 
 const StSignupbox = styled.div`
   padding-top: 30px;
-  background-color: white;
+  background: #ffffff;
   width: 350px;
   height: 350px;
   border-radius: 10px;
@@ -113,18 +123,37 @@ const Input = styled.input`
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
 const Button = styled.button`
-  width: 100px;
+  width: 80px;
   height: 35px;
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  font-family: "IBM Plex Sans KR", sans-serif;
+  background: #e6e6fa;
+  color: #800080;
+  background: #118ba3;
+  color: #ffffff;
+  &:hover {
+    color: #ffffff;
+    background: #cc3723;
+    transition: all 0.2s linear;
+    overflow: hidden;
+    box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  }
 `;
 const InputGroup = styled.div`
   width: 300px;
   height: 200px;
 `;
 const DivinSubmit = styled.div`
-  padding-left: 100px;
   width: 100px;
   height: 50px;
+  padding-left: 60px;
+`;
+const ButtonGroup = styled.div`
+  width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 50px;
+  gap: 10%;
 `;

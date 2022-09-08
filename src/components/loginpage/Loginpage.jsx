@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __userLogin } from "../../redux/modules/users";
 import styled from "styled-components";
-import Login from "../../pages/Login";
 
 const Loginpage = () => {
   let navigate = useNavigate();
@@ -81,14 +80,15 @@ const Loginpage = () => {
 export default Loginpage;
 
 const StContainer = styled.div`
-  background-color: white;
   border-radius: 10px;
+  border: none;
   width: 300px;
   height: 300px;
   float: center;
   align-items: center;
   margin: 100px 0 0 450px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  background: #ffffff;
 `;
 const Divin = styled.div`
   padding: 10px;
@@ -108,6 +108,18 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  font-family: "IBM Plex Sans KR", sans-serif;
+  background: #e6e6fa;
+  color: #800080;
+  background: #118ba3;
+  color: #ffffff;
+  &:hover {
+    color: #ffffff;
+    background: #cc3723;
+    transition: all 0.2s linear;
+    overflow: hidden;
+    box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  }
 `;
 const InputGroup = styled.div`
   width: 205px;
@@ -118,6 +130,7 @@ const Input = styled.input`
   width: 180px;
   height: 35px;
   border: none;
+  background: #fffff0;
   border-radius: 5px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;

@@ -9,13 +9,13 @@ const Postmodal = ({ post, close }) => {
   const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
   const fresh = getCookie("REFRESH_TOKEN");
   console.log(fresh);
-  console.log(post.data);
+
   let dispatch = useDispatch();
   const initialState = {
-    id: post.data.id,
-    title: post.data.title,
-    content: post.data.content,
-    image: post.data.image,
+    id: post.id,
+    title: post.title,
+    content: post.content,
+    image: post.image,
   };
   const [post1, setPost1] = useState(initialState);
   const [title, setTitle] = useState(post1.title);
@@ -24,27 +24,30 @@ const Postmodal = ({ post, close }) => {
   const onUpdateHandler = async (e) => {
     e.preventDefault();
     let req = {
-      title: post.data.title,
-      content: post.data.content,
+      title,
+      content,
     };
-
     const json = JSON.stringify(req);
     let formData = new FormData();
     formData.append("image", image);
     const titleblob = new Blob([json], { type: "application/json" });
     formData.append("title", titleblob);
+    console.log(json);
     const contentblob = new Blob([json], { type: "application/json" });
     formData.append("content", contentblob);
 
     console.log(formData);
     const payload = {
-      id: post.data.id,
+      id: post.id,
       data: formData,
       token: token,
       fresh: fresh,
     };
+
+    console.log("ddd");
     // navigate("/");
     dispatch(updatePost(payload));
+    close();
     // for (let value of formData.values()) {
     //   console.log(value);
     // }
@@ -56,10 +59,10 @@ const Postmodal = ({ post, close }) => {
   return (
     <Modaldiv className="black-bg show-modal">
       <ModalContainer className="white-bg" onSubmit={onUpdateHandler}>
-        <h4>게시글 수정</h4>
+        <H4>게시글 수정</H4>
         <div>
-          <label>제목</label>
-          <input
+          <Label>제목</Label>
+          <Input
             className="input"
             type="text"
             name="title"
@@ -69,18 +72,18 @@ const Postmodal = ({ post, close }) => {
             }}
           />
         </div>
-        <label htmlFor="imgUrl">
+        <StLabel htmlFor="imgUrl">
           <File
             type="file"
             accept=".gif, .jpg, .png, .jpeg"
             onChange={uploadImage}
             id="imgUrl"
           />
-          // 여기 보여줄 코드 버튼 넣기
-        </label>
+          사진수정
+        </StLabel>
         <div>
-          <label>내용</label>
-          <input
+          <Label>내용</Label>
+          <Input
             className="input"
             type="text"
             name="content"
@@ -90,23 +93,56 @@ const Postmodal = ({ post, close }) => {
             }}
           />
         </div>
-        <button className="btn btn-danger" type="submit">
-          수정하기
-        </button>
-        <button
-          className="btn btn-danger"
-          type="button"
-          onClick={() => {
-            close();
-          }}
-        >
-          닫기
-        </button>
+        <Divin>
+          <Button className="btn btn-danger" type="submit">
+            수정하기
+          </Button>
+          <Button
+            className="btn btn-danger"
+            type="button"
+            onClick={() => {
+              close();
+            }}
+          >
+            닫기
+          </Button>
+        </Divin>
       </ModalContainer>
     </Modaldiv>
   );
 };
 export default Postmodal;
+
+const Input = styled.input`
+  margin-left: 10px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 22%);
+  width: 250px;
+  height: 25px;
+`;
+
+const Divin = styled.div`
+  margin-top: 10px;
+  margin-left: 10px;
+`;
+
+const Button = styled.button`
+  margin-left: 20px;
+  width: 70px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 22%);
+  font-family: "IBM Plex Sans KR", sans-serif;
+  background: #118ba3;
+  color: #ffffff;
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.2s linear;
+    overflow: hidden;
+  }
+`;
 
 const Modaldiv = styled.div`
   z-index: 99;
@@ -132,4 +168,17 @@ const ModalContainer = styled.form`
 `;
 const File = styled.input`
   display: none;
+`;
+const H4 = styled.h4`
+  font-family: "IBM Plex Sans KR", sans-serif;
+`;
+const Label = styled.label`
+  font-family: "IBM Plex Sans KR", sans-serif;
+`;
+
+const StLabel = styled.label`
+  font-family: "IBM Plex Sans KR", sans-serif;
+  width: 100px;
+  height: 30px;
+  margin-top: 20rem;
 `;

@@ -10,17 +10,14 @@ const Posts = ({ post }) => {
         <PostBody>
           <PostTitle onClick={() => navigate("/view/" + post?.id)}>
             <Texts>
-              <div>
+              <Divinuser>
                 <p>{post?.nickname}</p>
-              </div>
+              </Divinuser>
+              <Divintitle>
+                <h3>{post?.title}</h3>
+              </Divintitle>
               <div>
-                <p>{post?.title}</p>
-              </div>
-              <div>
-                <span>💙 </span>
-              </div>
-              <div>
-                <p>{post?.likes}</p>
+                <span>💙 {post?.likes}</span>
               </div>
             </Texts>
             <ImgDiv>
@@ -35,20 +32,33 @@ const Posts = ({ post }) => {
 
 export default Posts;
 
+const Divintitle = styled.div`
+  border: none;
+  width: 150px;
+  height: 70px;
+`;
+
+const Divinuser = styled.div`
+  border: none;
+  width: 80px;
+  height: 30px;
+`;
+
 const PostTitle = styled.div`
   margin-top: 40px;
-  margin-left: 68px;
+  margin-left: 35px;
   background-color: white;
   position: relative;
   justify-content: space-between;
   display: flex;
   border-radius: 10px;
   height: 250px;
-  width: 300px;
+  width: 350px;
   float: left;
   cursor: pointer;
   &:hover {
-    color: blue;
+    color: #0000cd;
+    background: #ffffff;
   }
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
@@ -61,6 +71,7 @@ const PostBody = styled.div`
 const Texts = styled.div`
   margin-top: 30px;
   margin-left: 30px;
+  font-family: "IBM Plex Sans KR", sans-serif;
 `;
 const ImgDiv = styled.div`
   width: 150px;
