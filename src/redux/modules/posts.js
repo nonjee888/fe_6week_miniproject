@@ -1,4 +1,5 @@
 import { instance } from "../../shared/api";
+import { useDispatch } from "react-redux";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const __getPosts = createAsyncThunk(
@@ -6,7 +7,6 @@ export const __getPosts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const data = await instance.get("/api/posts");
-
       return data.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -18,7 +18,7 @@ export const __getDetailPosts = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get(`/api/posts/${payload}`);
-      // console.log(data);
+      console.log(data);
       return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -32,16 +32,18 @@ export const updatePost = createAsyncThunk(
     try {
       const data = await instance.put(
         `/api/auth/posts/${payload.id}`,
-        payload.id,
+        payload.data,
         {
           headers: {
-            "Content-Type": "multipart/form",
+            "content-type": "multipart/form-data",
+            Accept: "*/*",
           },
         }
       );
       console.log(payload);
+      // thunkApI.dispatch(__getDetailPosts(payload.id)); //thunkApI
       return thunkApI.fulfillWithValue(data.data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       return thunkApI.rejectWithValue(error);
     }
@@ -53,7 +55,7 @@ export const onLikePost = createAsyncThunk(
     console.log(payload);
     try {
       const data = await instance.post(
-        `/api/auth/posts/like/${payload.add1.data.id}`,
+        `/api/auth/posts/likes/${payload.add1.data.id}`,
         {} //post는 두번째 인자가 데이터가 들어가야해서 {}를 넣어줌 데이터가 없으면 headers를 데이터로 인식
       );
       return thunkApI.fulfillWithValue(data.data);
@@ -63,7 +65,7 @@ export const onLikePost = createAsyncThunk(
   }
 );
 export const removePost = createAsyncThunk(
-  "post/upDate",
+  "remove/removePost",
   async (payload, thunkApI) => {
     try {
       const data = await instance.delete(`/api/auth/posts/${payload.id}`);
@@ -137,9 +139,18 @@ export const posts = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       });
+    builder
+      .addCase(updatePost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(updatePost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
   },
 });
-
-export let { createPost } = posts.actions;
 
 export default posts;

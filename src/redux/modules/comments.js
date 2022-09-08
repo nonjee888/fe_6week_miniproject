@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { instance } from "../../shared/api";
+import { __getDetailPosts } from "./posts";
 
 export const createComment = createAsyncThunk(
   "comments/CreateComments",
@@ -7,8 +8,9 @@ export const createComment = createAsyncThunk(
     console.log(payload);
     try {
       const data = await instance.post("/api/auth/comments/", payload.review);
-
+      // thunkAPI.dispatch(__getDetailPosts(payload.id));
       return data.data;
+      console.log(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -38,11 +40,11 @@ export const updateComment = createAsyncThunk(
     console.log(payload);
     try {
       const data = await instance.put(`/api/auth/comments/${payload.id}`, {
-        postId: payload.id,
+        postId: payload.postId,
         content: payload.content,
       });
-
-      return data.data;
+      console.log(data);
+      return data.data; //존재하지않는 게시글 id입니다. data.data.data = null
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "../../redux/modules/comments";
-import { __getDetailPosts } from "../../redux/modules/posts";
+import { __getDetailPosts, __getPosts } from "../../redux/modules/posts";
 import Ment from "../ment/Ment";
 
 const Comment = () => {
@@ -19,12 +19,15 @@ const Comment = () => {
   let [ment, setMent] = useState("");
   let [review, setReview] = useState(initialState);
   let { id } = useParams();
+  let postId = id;
+  console.log(postId);
   let payload = {
     token: token,
     fresh: fresh,
     review: review,
   };
   const { isLoading, error, detail } = useSelector((state) => state?.posts);
+  console.log(detail);
   useEffect(() => {
     dispatch(__getDetailPosts(id));
   }, []);
@@ -62,7 +65,7 @@ const Comment = () => {
       </div>
       <div>
         {detail?.data?.commentResponseDtoList?.map((comment) => {
-          return <Ment ment={comment} key={comment.id} />;
+          return <Ment ment={comment} key={comment.id} postId={postId} />;
         })}
       </div>
     </div>

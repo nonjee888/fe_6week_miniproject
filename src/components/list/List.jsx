@@ -1,16 +1,20 @@
 import React from "react";
+import Posts from "../posts/Posts";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "../../redux/modules/posts";
-import Posts from "../posts/Posts";
 import { getCookie } from "../../shared/cookie";
 
 const List = () => {
-  //토큰 저장되는지 확인하기
   let token = getCookie("ACCESS_TOKEN");
   let fresh = getCookie("REFRESH_TOKEN");
-
+  console.log(fresh, token);
+  let navigate = useNavigate();
   let dispatch = useDispatch();
+  // const random = useRef();
+  //데이터받아오기
+  const user = localStorage.getItem("nickname");
   const { isLoading, error, posts } = useSelector((state) => state?.posts);
   useEffect(() => {
     dispatch(__getPosts());

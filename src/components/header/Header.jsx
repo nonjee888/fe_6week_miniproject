@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { banner } from "../../img";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -47,12 +48,21 @@ const StHeader = styled.div`
   background-repeat: no-repeat;
 `;
 const Button = styled.button`
-  width: 80px;
+  width: 90px;
   height: 35px;
   border: none;
   border-radius: 5px;
   margin-right: 10px;
-  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  background: #f0f8ff;
+  color: #6a5acd;
+  &:hover {
+    color: #0000cd;
+    background: #87cefa;
+    transform: scale(1.2);
+    transition: all 0.2s linear;
+    overflow: hidden;
+    box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  }
 `;
 const ButtonGroup = styled.div`
   margin-left: 900px;

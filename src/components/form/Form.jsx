@@ -1,10 +1,8 @@
 import React from "react";
-import axios from "axios";
 import styled from "styled-components";
 import { useState } from "react";
 import { instance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "../../shared/cookie";
 
 const Form = () => {
   let navigate = useNavigate();

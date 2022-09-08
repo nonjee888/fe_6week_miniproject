@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __userLogin } from "../../redux/modules/users";
 import styled from "styled-components";
-import Login from "../../pages/Login";
 
 const Loginpage = () => {
   let navigate = useNavigate();

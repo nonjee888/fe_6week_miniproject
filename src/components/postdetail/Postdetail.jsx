@@ -19,6 +19,7 @@ const Postdetail = () => {
   let dispatch = useDispatch();
   let [modal, setModal] = useState(false);
   const { isLoading, error, detail } = useSelector((state) => state?.posts);
+  console.log(detail);
   let { id } = useParams();
   useEffect(() => {
     dispatch(__getDetailPosts(id));
@@ -74,7 +75,7 @@ const Postdetail = () => {
   // if (data.success) {
   //   navigate("/main");
   // }
-  console.log(detail);
+
   return (
     <>
       {modal ? <Postmodal post={detail} close={close} /> : null}

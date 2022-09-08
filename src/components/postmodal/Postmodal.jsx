@@ -9,12 +9,12 @@ const Postmodal = ({ post, close }) => {
   const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
   const fresh = getCookie("REFRESH_TOKEN");
   console.log(fresh);
-  console.log(post.data);
+
   let dispatch = useDispatch();
   const initialState = {
     id: post.data.id,
     title: post.data.title,
-    content: post.data.content,
+    content: post.data.title,
     image: post.data.image,
   };
   const [post1, setPost1] = useState(initialState);
@@ -24,15 +24,15 @@ const Postmodal = ({ post, close }) => {
   const onUpdateHandler = async (e) => {
     e.preventDefault();
     let req = {
-      title: post.data.title,
-      content: post.data.content,
+      title,
+      content,
     };
-
     const json = JSON.stringify(req);
     let formData = new FormData();
     formData.append("image", image);
     const titleblob = new Blob([json], { type: "application/json" });
     formData.append("title", titleblob);
+    console.log(json);
     const contentblob = new Blob([json], { type: "application/json" });
     formData.append("content", contentblob);
 
@@ -43,8 +43,11 @@ const Postmodal = ({ post, close }) => {
       token: token,
       fresh: fresh,
     };
+
+    console.log("ddd");
     // navigate("/");
     dispatch(updatePost(payload));
+    close();
     // for (let value of formData.values()) {
     //   console.log(value);
     // }

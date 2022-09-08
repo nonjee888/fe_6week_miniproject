@@ -1,4 +1,4 @@
-import { setCookie } from "../../shared/cookie";
+import { deleteCookie, setCookie } from "../../shared/cookie";
 import { instance } from "../../shared/api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -8,18 +8,40 @@ export const __userLogin = createAsyncThunk(
     try {
       const data = await instance.post("/api/member/login", payload);
       console.log(data);
-      if (data.data.success) {
-        setCookie("isLogin", data.headers.authorization);
-        setCookie("ACCESS_TOKEN", data.headers.authorization, 0.5);
-        setCookie("REFRESH_TOKEN", data.headers.refreshtoken); //체크
-        localStorage.setItem("nickname", data.data.data.nickname);
-      }
+
+      setCookie("isLogin", data.headers.authorization);
+      setCookie("ACCESS_TOKEN", data.headers.authorization);
+      setCookie("REFRESH_TOKEN", data.headers.refreshtoken); //체크
+      localStorage.setItem("nickname", data.data.data.nickname);
+
       return thunkAPI.fulfillWithValue(data.data.data.nickname);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
+
+// export const userSlice = createSlice({
+//   name: "userLogout",
+//   initialState: {
+//     isLoading: false,
+//     userInfo: null,
+//     userToken,
+//     error: null,
+//     success: false,
+//   },
+//   reducers: {
+//     logout(state) {
+//       deleteCookie("ACCESS_TOKEN");
+//       deleteCookie("REFRESH_TOKEN");
+//       localStorage.removeItem("nickname");
+//       state.isLoading = false;
+//       state.userInfo = null;
+//       state.userToken = null;
+//       state.error = null;
+//     },
+//   },
+// });
 
 export const users = createSlice({
   name: "users",

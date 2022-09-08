@@ -3,19 +3,20 @@ import { useDispatch } from "react-redux";
 import { getCookie } from "../../shared/cookie";
 import { updateComment } from "../../redux/modules/comments";
 
-const Commentmodal = ({ ment, close }) => {
-  console.log(ment);
+const Commentmodal = ({ ment, close, postId }) => {
+  console.log(postId);
   let token = getCookie("ACCESS_TOKEN");
   let fresh = getCookie("REFRESH_TOKEN");
   let dispatch = useDispatch();
   const initialState = {
-    postId: ment.postId,
+    postId: ment.id,
     content: ment.content,
   };
   const [ment1, setMent] = useState(initialState);
   const [content, setContent] = useState(ment1.content);
   const payload = {
-    id: ment.id,
+    postId,
+    id: ment1.postId,
     content: content,
     token: token,
     fresh: fresh,
