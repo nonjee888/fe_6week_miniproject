@@ -6,8 +6,6 @@ import Commentmodal from "../commentmodal/Commentmodal";
 import { removeComment } from "../../redux/modules/comments";
 
 const Ment = ({ ment, postId }) => {
-  let isLogin = getCookie("isLogin");
-  let isLogout = deleteCookie("isLogin");
   console.log(ment);
   let dispatch = useDispatch();
   let [modal, setModal] = useState(false);
@@ -16,8 +14,9 @@ const Ment = ({ ment, postId }) => {
   };
   return (
     <>
-      {modal ? <Commentmodal ment={ment} close={close} /> : null}
-
+      {modal ? (
+        <Commentmodal ment={ment} close={close} postId={postId} />
+      ) : null}
       <div className="list" key={ment.postId}>
         <Divin3>
           <Divin2>

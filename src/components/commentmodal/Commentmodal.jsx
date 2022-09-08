@@ -19,8 +19,6 @@ const Commentmodal = ({ ment, close, postId }) => {
     postId,
     id: ment1.postId,
     content: content,
-    token: token,
-    fresh: fresh,
   };
   return (
     <div>
