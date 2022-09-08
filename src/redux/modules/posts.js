@@ -18,7 +18,7 @@ export const __getDetailPosts = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get(`/api/posts/${payload}`);
-      console.log(data);
+      console.log(data.data.data);
       return data.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -43,7 +43,6 @@ export const updatePost = createAsyncThunk(
       console.log(payload);
       // thunkApI.dispatch(__getDetailPosts(payload.id)); //thunkApI
       return thunkApI.fulfillWithValue(data.data);
-      // console.log(data);
     } catch (error) {
       return thunkApI.rejectWithValue(error);
     }
@@ -58,7 +57,6 @@ export const onLikePost = createAsyncThunk(
         `/api/auth/posts/likes/${payload}`,
         {} //post는 두번째 인자가 데이터가 들어가야해서 {}를 넣어줌 데이터가 없으면 headers를 데이터로 인식
       );
-      console.log(data);
       return payload;
     } catch (error) {
       return thunkApI.rejectWithValue(error);

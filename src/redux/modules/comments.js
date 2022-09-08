@@ -9,8 +9,8 @@ export const createComment = createAsyncThunk(
     try {
       const data = await instance.post("/api/auth/comments/", payload.review);
       // thunkAPI.dispatch(__getDetailPosts(payload.id));
-      return data.data;
       console.log(data);
+      return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -26,7 +26,6 @@ export const removeComment = createAsyncThunk(
         `/api/auth/comments/${payload}`,
         payload
       );
-      console.log(data);
       return payload;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -43,7 +42,6 @@ export const updateComment = createAsyncThunk(
         postId: payload.postId,
         content: payload.content,
       });
-      console.log(data);
       return data.data; //존재하지않는 게시글 id입니다. data.data.data = null
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

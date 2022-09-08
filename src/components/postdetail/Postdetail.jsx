@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Postmodal from "../postmodal/Postmodal";
+import { instance } from "../../shared/api";
 import { onLikePost } from "../../redux/modules/posts";
 import { getCookie } from "../../shared/cookie";
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ const Postdetail = () => {
   let dispatch = useDispatch();
   let [modal, setModal] = useState(false);
   const { isLoading, error, detail } = useSelector((state) => state?.posts);
-  console.log(detail);
+
   let { id } = useParams();
   useEffect(() => {
     dispatch(__getDetailPosts(id));
@@ -35,12 +36,9 @@ const Postdetail = () => {
 
   const onDeleteHandler = async (event) => {
     event.preventDefault();
-    const payload = {
-      id: detail.id,
-      token: token,
-      fresh: fresh,
-    };
-    dispatch(removePost(payload));
+    const { data } = await instance.delete(`/api/auth/posts/${id}`);
+    console.log(data);
+    if (data.success) navigate("/main");
   };
 
   const onLike = async (event) => {
