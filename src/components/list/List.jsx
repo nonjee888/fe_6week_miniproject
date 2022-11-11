@@ -10,9 +10,7 @@ const List = () => {
   let token = getCookie("ACCESS_TOKEN");
   let fresh = getCookie("REFRESH_TOKEN");
   console.log(fresh, token);
-  let navigate = useNavigate();
   let dispatch = useDispatch();
-  // const random = useRef();
   //데이터받아오기
   const user = localStorage.getItem("nickname");
   const { isLoading, error, posts } = useSelector((state) => state?.posts);

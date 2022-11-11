@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { deleteCookie, getCookie } from "../../shared/cookie";
 import { useDispatch } from "react-redux/";
 import Commentmodal from "../commentmodal/Commentmodal";
 import { removeComment } from "../../redux/modules/comments";

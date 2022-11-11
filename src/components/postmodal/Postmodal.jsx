@@ -8,49 +8,49 @@ import { updatePost } from "../../redux/modules/posts";
 const Postmodal = ({ post, close }) => {
   const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
   const fresh = getCookie("REFRESH_TOKEN");
-  console.log(fresh);
 
   let dispatch = useDispatch();
+
   const initialState = {
     id: post.id,
     title: post.title,
     content: post.content,
     image: post.image,
   };
+
   const [post1, setPost1] = useState(initialState);
   const [title, setTitle] = useState(post1.title);
   const [content, setContent] = useState(post1.content);
   const [image, setImage] = useState(post1.image);
+
   const onUpdateHandler = async (e) => {
     e.preventDefault();
+
     let req = {
       title,
       content,
     };
+
     const json = JSON.stringify(req);
+
     let formData = new FormData();
     formData.append("image", image);
+
     const titleblob = new Blob([json], { type: "application/json" });
     formData.append("title", titleblob);
-    console.log(json);
+
     const contentblob = new Blob([json], { type: "application/json" });
     formData.append("content", contentblob);
 
-    console.log(formData);
     const payload = {
       id: post.id,
       data: formData,
-      token: token,
-      fresh: fresh,
+      token,
+      fresh,
     };
 
-    console.log("ddd");
-    // navigate("/");
     dispatch(updatePost(payload));
     close();
-    // for (let value of formData.values()) {
-    //   console.log(value);
-    // }
   };
   const uploadImage = (event) => {
     const file = event.target.files;

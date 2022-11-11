@@ -1,25 +1,25 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getCookie } from "../../shared/cookie";
 import { updateComment } from "../../redux/modules/comments";
 
 const Commentmodal = ({ ment, close, postId }) => {
-  console.log(postId);
-  let token = getCookie("ACCESS_TOKEN");
-  let fresh = getCookie("REFRESH_TOKEN");
   let dispatch = useDispatch();
+
   const initialState = {
     postId: ment.id,
     content: ment.content,
   };
+
   const [ment1, setMent] = useState(initialState);
   const [content, setContent] = useState(ment1.content);
+
   const payload = {
     postId,
     id: ment1.postId,
     content: content,
   };
+
   return (
     <div>
       <div className="black-bg show-modal">

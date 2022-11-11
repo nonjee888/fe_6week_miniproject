@@ -1,5 +1,4 @@
 import { instance } from "../../shared/api";
-import { useDispatch } from "react-redux";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const __getPosts = createAsyncThunk(
@@ -18,7 +17,7 @@ export const __getDetailPosts = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get(`/api/posts/${payload}`);
-      console.log(data.data.data);
+
       return data.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -40,8 +39,7 @@ export const updatePost = createAsyncThunk(
           },
         }
       );
-      console.log(payload);
-      // thunkApI.dispatch(__getDetailPosts(payload.id)); //thunkApI
+
       return thunkApI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkApI.rejectWithValue(error);
@@ -93,28 +91,23 @@ export const posts = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    // console.log(builder);
     builder
       .addCase(__getPosts.pending, (state) => {
         state.isLoading = true;
-        // console.log("pending");
       })
       .addCase(__getPosts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.posts = action.payload;
-        // console.log(action.payload);
       })
       .addCase(__getPosts.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        // console.log("rejected");
       });
     builder
       .addCase(__getDetailPosts.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(__getDetailPosts.fulfilled, (state, action) => {
-        // console.log(__getDetailPosts);
         state.isLoading = false;
         state.detail = action.payload;
       })

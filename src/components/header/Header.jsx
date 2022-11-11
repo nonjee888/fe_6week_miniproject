@@ -78,7 +78,6 @@ const ButtonGroup = styled.div`
   margin-left: 200px;
   margin-top: 150px;
   width: 500px;
-  /* justify-content: space-between; */
 `;
 const HomeButton = styled.div`
   height: 250px;
@@ -87,10 +86,3 @@ const HomeButton = styled.div`
   margin-left: 500px;
   cursor: pointer;
 `;
-// const HeaderBox = styled.form`
-// display: flex;
-// flex-direction: row;
-// -webkit-box-align: center;
-// align-items: center;
-// justify-content: space-between;
-// margin: 15px 15px 15px; `;
