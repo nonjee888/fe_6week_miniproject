@@ -4,14 +4,12 @@ import Posts from "../posts/Posts";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getCookie } from "../../shared/cookie";
 import { __getPosts } from "../../redux/modules/posts";
 
 const Mylist = () => {
   let nickname = localStorage.getItem("nickname");
   let dispatch = useDispatch();
-  let token = getCookie("ACCESS_TOKEN");
-  let fresh = getCookie("FRESH_TOKEN");
+
   const { isLoading, error, posts } = useSelector((state) => state?.posts);
   useEffect(() => {
     dispatch(__getPosts());
@@ -22,10 +20,11 @@ const Mylist = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
-  console.log(posts);
+
   let postList = posts.filter((post) => {
     return post.nickname == nickname;
   });
+
   return (
     <MyContainer>
       <StP>나의 게시글</StP>

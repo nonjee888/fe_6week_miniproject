@@ -11,22 +11,28 @@ import Ment from "../ment/Ment";
 const Comment = () => {
   let token = getCookie("ACCESS_TOKEN");
   let fresh = getCookie("REFRESH_TOKEN");
+
   let dispatch = useDispatch();
+
   const initialState = {
     postId: 0,
     content: "",
   };
+
   let [ment, setMent] = useState("");
   let [review, setReview] = useState(initialState);
   let { id } = useParams();
   let postId = id;
+
   let payload = {
     token: token,
     fresh: fresh,
     review: review,
     id,
   };
+
   const { isLoading, error, detail } = useSelector((state) => state?.posts);
+
   useEffect(() => {
     dispatch(__getDetailPosts(id));
   }, []);
@@ -36,6 +42,7 @@ const Comment = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
+
   return (
     <div>
       <Divin>

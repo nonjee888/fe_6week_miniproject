@@ -12,15 +12,13 @@ import { removePost } from "../../redux/modules/posts";
 import { useParams } from "react-router";
 
 const Postdetail = () => {
-  const token = getCookie("ACCESS_TOKEN"); //getCookie로 token 가져오기
-  const fresh = getCookie("REFRESH_TOKEN");
-  // console.log(fresh);
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let [modal, setModal] = useState(false);
+  let { id } = useParams();
+
   const { isLoading, error, detail } = useSelector((state) => state?.posts);
 
-  let { id } = useParams();
   useEffect(() => {
     dispatch(__getDetailPosts(id));
   }, [dispatch]);
@@ -30,6 +28,7 @@ const Postdetail = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
+
   const close = () => {
     setModal(false);
   };
@@ -45,28 +44,6 @@ const Postdetail = () => {
     event.preventDefault();
     dispatch(onLikePost(id));
   };
-
-  // .unwrap()
-  // .then((originalPromiseResult) => {
-  //   console.log("삭제성공");
-  // })
-  // .catch((rejectedValueOrSerializedError) => {
-  //   // handle error here
-  // });
-
-  // navigate("/main");
-
-  // const URL = "http://52.79.247.187:8080/api/auth/posts";
-  // const data = await axios.delete(URL, detail.data.id, {
-  //   headers: {
-  //     Authorization: token,
-  //     RefreshToken: fresh,
-  //   },
-  // });
-  // console.log(data);
-  // if (data.success) {
-  //   navigate("/main");
-  // }
 
   return (
     <>

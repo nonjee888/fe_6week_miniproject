@@ -23,10 +23,8 @@ const Form = () => {
     formData.append("image", image);
 
     let json = JSON.stringify(req);
-
     const titleblob = new Blob([json], { type: "application/json" });
     formData.append("title", titleblob);
-
     const contentblob = new Blob([json], { type: "application/json" });
     formData.append("content", contentblob);
 

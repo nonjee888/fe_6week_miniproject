@@ -5,30 +5,33 @@ import axios from "axios";
 
 const Signuppage = () => {
   let navigate = useNavigate();
+  let [user, setUser] = useState(initialState);
+
   let initialState = {
     nickname: "",
     password: "",
     passwordConfirm: "",
   };
-  let [user, setUser] = useState(initialState);
+
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
     setUser({ ...user, [name]: value });
   };
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     const { data } = await axios.post(
       "http://52.79.247.187:8080/api/member/signup",
       user
     );
-    console.log(data);
+
     if (data.success) {
       navigate("/");
     } else {
       window.alert(data.error.message);
     }
   };
+
   return (
     <StSignupbox>
       <Stcontainer onSubmit={onSubmitHandler}>

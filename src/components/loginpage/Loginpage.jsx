@@ -16,17 +16,6 @@ const Loginpage = () => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   };
-  //이벤트 리스너
-  // idForm.addEventListner('keyup', activeEvent);
-  // pwForm.addEventListner('keyup', activeEvent);
-  // LoginButton.addEventListner('click', errorEvent);
-
-  // function activeEvent() {
-  //   switch(!(idForm.value && pwForm.value)){
-  //     case true : LoginButton.disabled = true; break;
-  //     case false : LoginButton.disabled = false; break;
-  //   }
-  // }
 
   return (
     <StContainer>
