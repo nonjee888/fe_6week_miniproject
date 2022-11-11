@@ -22,8 +22,7 @@
 # 🖇 와이어프레임 
 ![2조_와이어_프레임](https://user-images.githubusercontent.com/106578705/201228319-c2e449fa-e497-4635-ae5d-9b57ab467e40.jpeg)</br></br>
 
-# 🍎 API 설계
-## [API](https://www.notion.so/d46952166df04ef2a2e2a535bff58827?v=871d1a89a7914347b2600503a277f44a)
+# 🍎 [API 설계](https://www.notion.so/d46952166df04ef2a2e2a535bff58827?v=871d1a89a7914347b2600503a277f44a)</br></br>
 
 # 📚 기술 스택
 
@@ -61,7 +60,5 @@ src="https://camo.githubusercontent.com/e68c6b9ddf0d0aa553f47fa6a1beb2b60176552e
 <img
 src="https://camo.githubusercontent.com/c37f52fc7f77f8a8fd16a733a91c75278dcb3149e14c24a2203d7f7217bb4643/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f536c61636b2d3441313534423f7374796c653d666f722d7468652d6261646765266c6f676f3d536c61636b266c6f676f436f6c6f723d7768697465"></br></br>
 
-# 🎯 BLOG -- 트러블슈팅 회고록
-
-## [트러블슈팅 & 회고록](https://nonjee888.tistory.com/entry/WIL-%ED%98%91%EC%97%85-%EB%AF%B8%EB%8B%88%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%98%A4%EB%8A%98%EB%8F%84-%EB%AC%B4%EC%82%AC%ED%9E%88-%ED%9A%8C%EA%B3%A0)
+# 🎯 BLOG -- 트러블슈팅 회고록(https://nonjee888.tistory.com/entry/WIL-%ED%98%91%EC%97%85-%EB%AF%B8%EB%8B%88%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%98%A4%EB%8A%98%EB%8F%84-%EB%AC%B4%EC%82%AC%ED%9E%88-%ED%9A%8C%EA%B3%A0)
 </br></br>
