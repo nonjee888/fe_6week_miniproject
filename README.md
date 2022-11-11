@@ -16,11 +16,14 @@
 ### 고된 일상을 버텨내고 무사히 넘긴 나의 하루를 공유하는 공유 일기장입니다.
 </br></br>
 
-# 🗂컴포넌트 구조
+# 🗂 컴포넌트 구조
 ![컴포넌트구조-미니프로젝트6주](https://user-images.githubusercontent.com/106578705/201228262-cbe1dadf-a572-413f-84db-0df99c0c17fd.png)</br></br>
 
-# 🖇와이어프레임 
+# 🖇 와이어프레임 
 ![2조_와이어_프레임](https://user-images.githubusercontent.com/106578705/201228319-c2e449fa-e497-4635-ae5d-9b57ab467e40.jpeg)</br></br>
+
+# 🍎 API 설계
+![API](https://www.notion.so/d46952166df04ef2a2e2a535bff58827?v=871d1a89a7914347b2600503a277f44a)
 
 # 📚 기술 스택
 
