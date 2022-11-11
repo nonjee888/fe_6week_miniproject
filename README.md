@@ -23,7 +23,7 @@
 ![2조_와이어_프레임](https://user-images.githubusercontent.com/106578705/201228319-c2e449fa-e497-4635-ae5d-9b57ab467e40.jpeg)</br></br>
 
 # 🍎 API 설계
-![API](https://www.notion.so/d46952166df04ef2a2e2a535bff58827?v=871d1a89a7914347b2600503a277f44a)
+## [API](https://www.notion.so/d46952166df04ef2a2e2a535bff58827?v=871d1a89a7914347b2600503a277f44a)
 
 # 📚 기술 스택
 
