@@ -5,7 +5,7 @@
 
 ### 2022.09.02 ~ 2022.09.08 </br></br>
 
-# 💻 [Service 시연](https://youtu.be/2hTdMcXrmvU) </br></br>
+# 💻 [Service 시연](https://youtu.be/2hTdMcXrmvU)
 
 # 👩‍👩‍👧 팀원 
 ### FE : 노은지 | BE : 김민식 김성재 
